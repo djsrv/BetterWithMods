@@ -4,11 +4,6 @@ import betterwithmods.BWMBlocks;
 import betterwithmods.config.BWConfig;
 import betterwithmods.integration.ICompatModule;
 import betterwithmods.items.ItemMaterial;
-import blusunrize.immersiveengineering.api.crafting.SqueezerRecipe;
-import blusunrize.immersiveengineering.api.tool.ConveyorHandler;
-import blusunrize.immersiveengineering.common.IEContent;
-import blusunrize.immersiveengineering.common.blocks.plant.BlockIECrop;
-import blusunrize.immersiveengineering.common.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -22,8 +17,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-
-import static blusunrize.immersiveengineering.common.IERecipes.addOredictRecipe;
 
 /**
  * Created by tyler on 9/10/16.

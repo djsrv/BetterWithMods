@@ -1,6 +1,6 @@
 package betterwithmods.integration.jei.wrapper;
 
-import betterwithmods.craft.BlockMetaRecipe;
+import betterwithmods.api.crafting.blockmeta.BlockMetaRecipe;
 import com.google.common.collect.Lists;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
@@ -19,7 +19,7 @@ public class BlockMetaWrapper extends BlankRecipeWrapper {
     public final ItemStack input;
 
     public BlockMetaWrapper(BlockMetaRecipe recipe) {
-        this.input = recipe.getStack();
+        this.input = recipe.getInput();
         outputs.addAll(recipe.getOutputs());
     }
 

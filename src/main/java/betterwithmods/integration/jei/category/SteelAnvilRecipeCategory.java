@@ -1,6 +1,6 @@
 package betterwithmods.integration.jei.category;
 
-import betterwithmods.BWMod;
+import betterwithmods.base.BWMod;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;

@@ -5,7 +5,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Represents an integration module for a mod.
- * Client methods should be called only by {@link betterwithmods.proxy.ClientProxy}
+ * Client methods should be called only by {@link betterwithmods.base.proxy.ClientProxy}
  *
  * @author Koward
  */

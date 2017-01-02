@@ -1,7 +1,7 @@
 package betterwithmods.integration.jei.wrapper;
 
-import betterwithmods.craft.HopperFilters;
-import betterwithmods.craft.HopperInteractions;
+import betterwithmods.modules.automation.features.HopperFilters;
+import betterwithmods.api.crafting.HopperInteractions;
 import com.google.common.collect.Lists;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;

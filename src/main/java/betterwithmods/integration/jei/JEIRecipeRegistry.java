@@ -1,12 +1,12 @@
 package betterwithmods.integration.jei;
 
-import betterwithmods.craft.HopperInteractions;
-import betterwithmods.craft.KilnInteraction;
-import betterwithmods.craft.SawInteraction;
-import betterwithmods.craft.TurntableInteraction;
-import betterwithmods.craft.bulk.*;
-import betterwithmods.craft.steelanvil.CraftingManagerSteelAnvil;
-import betterwithmods.craft.steelanvil.ShapedSteelAnvilRecipe;
+import betterwithmods.api.crafting.HopperInteractions;
+import betterwithmods.api.crafting.blockmeta.KilnInteraction;
+import betterwithmods.api.crafting.blockmeta.SawInteraction;
+import betterwithmods.api.crafting.blockmeta.TurntableInteraction;
+import betterwithmods.api.crafting.bulk.*;
+import betterwithmods.api.crafting.steelanvil.CraftingManagerSteelAnvil;
+import betterwithmods.api.crafting.steelanvil.ShapedSteelAnvilRecipe;
 import betterwithmods.integration.jei.wrapper.*;
 import mezz.jei.api.IJeiHelpers;
 import net.minecraft.item.crafting.IRecipe;

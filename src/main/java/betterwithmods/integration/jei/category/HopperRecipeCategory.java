@@ -1,7 +1,7 @@
 package betterwithmods.integration.jei.category;
 
-import betterwithmods.BWMBlocks;
-import betterwithmods.BWMod;
+import betterwithmods.base.registry.BWMBlocks;
+import betterwithmods.base.BWMod;
 import betterwithmods.integration.jei.wrapper.HopperRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -71,7 +71,7 @@ public class HopperRecipeCategory extends BlankRecipeCategory<HopperRecipeWrappe
         guiItemStacks.init(0, true, x - 27, y + 27); //filter
         guiItemStacks.init(1, true, x, y); //input item
 
-        guiItemStacks.init(2, false, x + 28, y); //main output
+        guiItemStacks.init(2, false, x + 28, y); //main input
 
         guiItemStacks.init(3, false, x + 28, y + 27); //inventory result
 

@@ -1,10 +1,10 @@
 package betterwithmods.integration.jei;
 
-import betterwithmods.BWMBlocks;
-import betterwithmods.client.container.GuiCauldron;
-import betterwithmods.client.container.GuiCrucible;
-import betterwithmods.client.container.GuiMill;
-import betterwithmods.client.container.GuiSteelAnvil;
+import betterwithmods.base.registry.BWMBlocks;
+import betterwithmods.base.client.container.GuiCauldron;
+import betterwithmods.base.client.container.GuiCrucible;
+import betterwithmods.base.client.container.GuiMill;
+import betterwithmods.base.client.container.GuiSteelAnvil;
 import betterwithmods.integration.jei.category.*;
 import betterwithmods.integration.jei.handler.*;
 import mezz.jei.api.BlankModPlugin;

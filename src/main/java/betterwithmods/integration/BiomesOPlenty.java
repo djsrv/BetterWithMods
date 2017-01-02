@@ -1,6 +1,6 @@
 package betterwithmods.integration;
 
-import betterwithmods.util.NetherSpawnWhitelist;
+import betterwithmods.base.util.NetherSpawnWhitelist;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
