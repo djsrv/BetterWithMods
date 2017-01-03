@@ -1,6 +1,7 @@
 package betterwithmods.modules.aesthetic.features;
 
 import betterwithmods.base.blocks.ItemBlockMeta;
+import betterwithmods.base.client.ModelHandler;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.modules.aesthetic.blocks.BlockDebarkedNew;
 import betterwithmods.modules.aesthetic.blocks.BlockDebarkedOld;
@@ -23,6 +24,12 @@ public class Debarking extends Feature {
         DEBARKED_OLD = new BlockDebarkedOld().setRegistryName("debarked_old");
         registerBlock(DEBARKED_NEW, new ItemBlockMeta(DEBARKED_NEW));
         registerBlock(DEBARKED_OLD, new ItemBlockMeta(DEBARKED_OLD));
+    }
+
+    @Override
+    public void preInitClient(FMLPreInitializationEvent event) {
+        ModelHandler.setInventoryModel(DEBARKED_NEW);
+        ModelHandler.setInventoryModel(DEBARKED_OLD);
     }
 
     //EVENT TODO

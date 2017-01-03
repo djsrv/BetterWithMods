@@ -1,26 +1,19 @@
 package betterwithmods.base.blocks;
 
-import betterwithmods.api.block.IMultiVariants;
 import betterwithmods.base.client.BWCreativeTabs;
 import betterwithmods.base.util.DirUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -30,25 +23,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-public class BWMBlockPane extends BWMBlock implements IMultiVariants {
-    public static final PropertyEnum<EnumPaneType> TYPES = PropertyEnum.create("type", EnumPaneType.class);
+public class BWMBlockPane extends BWMBlock  {
+
 
     public BWMBlockPane() {
         super(Material.WOOD);
         this.setCreativeTab(BWCreativeTabs.BWTAB);
         this.setHardness(2.0F);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPES, EnumPaneType.OAK).withProperty(DirUtils.NORTH, false).withProperty(DirUtils.EAST, false).withProperty(DirUtils.SOUTH, false).withProperty(DirUtils.WEST, false));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(DirUtils.NORTH, false).withProperty(DirUtils.EAST, false).withProperty(DirUtils.SOUTH, false).withProperty(DirUtils.WEST, false));
         this.setSoundType(SoundType.WOOD);
     }
 
-    @Override
-    public String[] getVariants() {
-        String[] var = new String[BlockPlanks.EnumType.values().length];
-        for (int i = 0; i < var.length; i++) {
-            var[i] = "east=false,north=true,south=true,type=" + BlockPlanks.EnumType.byMetadata(i) + ",west=false";
-        }
-        return var;
-    }
 
     @Override
     public boolean isOpaqueCube(IBlockState state) {
@@ -60,13 +45,6 @@ public class BWMBlockPane extends BWMBlock implements IMultiVariants {
         return false;
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item item, CreativeTabs tab, List<ItemStack> list) {
-        for (int i = 0; i < 6; i++) {
-            list.add(new ItemStack(item, 1, i));
-        }
-    }
 
     @Override
     public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entity) {
@@ -129,10 +107,6 @@ public class BWMBlockPane extends BWMBlock implements IMultiVariants {
         return true;
     }
 
-    @Override
-    public int damageDropped(IBlockState state) {
-        return state.getValue(TYPES).getMeta();
-    }
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -185,54 +159,17 @@ public class BWMBlockPane extends BWMBlock implements IMultiVariants {
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(TYPES).getMeta();
+        return 0;
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(TYPES, EnumPaneType.byMeta(meta));
+        return getDefaultState();
     }
 
     @Override
     public BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, TYPES, DirUtils.SOUTH, DirUtils.EAST, DirUtils.NORTH, DirUtils.WEST);
+        return new BlockStateContainer(this, DirUtils.SOUTH, DirUtils.EAST, DirUtils.NORTH, DirUtils.WEST);
     }
 
-    public enum EnumPaneType implements IStringSerializable {
-        OAK(0, "oak"),
-        SPRUCE(1, "spruce"),
-        BIRCH(2, "birch"),
-        JUNGLE(3, "jungle"),
-        ACACIA(4, "acacia"),
-        DARK_OAK(5, "dark_oak");
-
-        private static final EnumPaneType[] META_LOOKUP = new EnumPaneType[values().length];
-
-        static {
-            for (EnumPaneType type : values()) {
-                META_LOOKUP[type.getMeta()] = type;
-            }
-        }
-
-        private String name;
-        private int meta;
-
-        EnumPaneType(int meta, String name) {
-            this.meta = meta;
-            this.name = name;
-        }
-
-        public static EnumPaneType byMeta(int meta) {
-            return META_LOOKUP[meta];
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        public int getMeta() {
-            return meta;
-        }
-    }
 }

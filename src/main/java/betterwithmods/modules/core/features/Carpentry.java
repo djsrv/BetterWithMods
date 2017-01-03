@@ -1,5 +1,6 @@
 package betterwithmods.modules.core.features;
 
+import betterwithmods.base.client.ModelHandler;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.modules.core.blocks.BlockSaw;
 import betterwithmods.modules.core.items.ItemBark;
@@ -48,7 +49,10 @@ public class Carpentry extends Feature {
 
     @Override
     public void preInitClient(FMLPreInitializationEvent event) {
-
+        ModelHandler.setInventoryModel(SAW);
+        ModelHandler.setInventoryModel(GEAR);
+        ModelHandler.setInventoryModel(SAW_DUST);
+        ModelHandler.setInventoryModel(BARK);
     }
 
     public static FakePlayer player;

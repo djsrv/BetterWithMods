@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Consumer;
 
 public final class ModuleLoader {
@@ -56,13 +57,15 @@ public final class ModuleLoader {
     }
 
     private static List<Class<? extends Module>> moduleClasses;
-    public static Map<Class<? extends Module>, Module> moduleInstances = new HashMap();
+    public static TreeMap<Class<? extends Module>, Module> moduleInstances = new TreeMap<>();
     public static Map<Class<? extends Feature>, Feature> featureInstances = new HashMap();
     public static List<Module> enabledModules;
 
     public static Configuration config;
     public static File configFile;
-
+    public static void sort() {
+        //this gave me a headache
+    }
     public static void preInit(FMLPreInitializationEvent event) {
         moduleClasses.forEach(clazz -> {
             try {
@@ -71,7 +74,7 @@ public final class ModuleLoader {
                 throw new RuntimeException("Can't initialize module " + clazz, e);
             }
         });
-
+        sort();
         setupConfig(event);
 
         forEachModule(module -> FMLLog.info("[%s] Module %s is %s",BWMod.MODID,module.name,(module.enabled ? "enabled" : "disabled")));

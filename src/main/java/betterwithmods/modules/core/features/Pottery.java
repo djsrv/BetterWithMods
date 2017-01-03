@@ -2,6 +2,7 @@ package betterwithmods.modules.core.features;
 
 import betterwithmods.base.blocks.ItemBlockMeta;
 import betterwithmods.base.client.ColorHandlers;
+import betterwithmods.base.client.ModelHandler;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.modules.core.blocks.BlockPlanter;
 import betterwithmods.modules.core.blocks.BlockUnfiredPottery;
@@ -35,8 +36,6 @@ public class Pottery extends Feature {
         URN = new BlockUrn().setRegistryName("urn");
         UNFIRED_POTTERY = new BlockUnfiredPottery().setRegistryName("unfired_pottery");
 
-
-
         registerBlock(PLANTER, new ItemBlockPlanter(PLANTER));
         registerBlock(VASE, new ItemBlockMeta(VASE));
         registerBlock(URN, new ItemBlockMeta(URN));
@@ -44,6 +43,14 @@ public class Pottery extends Feature {
 
         registerTile(TileEntityVase.class,  "bwm.vase");
 
+    }
+
+    @Override
+    public void preInitClient(FMLPreInitializationEvent event) {
+        ModelHandler.setInventoryModel(PLANTER);
+        ModelHandler.setInventoryModel(VASE);
+        ModelHandler.setInventoryModel(URN);
+        ModelHandler.setInventoryModel(UNFIRED_POTTERY);
     }
 
     @Override

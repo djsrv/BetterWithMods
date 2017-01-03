@@ -6,8 +6,8 @@ import betterwithmods.base.blocks.tile.IMechSubtype;
 import betterwithmods.base.util.DirUtils;
 import betterwithmods.base.util.InvUtils;
 import betterwithmods.base.util.RecipeUtils;
-import betterwithmods.modules.core.blocks.BlockMechMachines;
-import betterwithmods.modules.core.features.MechanicalBlocks;
+import betterwithmods.modules.core.blocks.BlockTurntable;
+import betterwithmods.modules.core.features.Machines;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockButton;
 import net.minecraft.block.BlockLadder;
@@ -82,7 +82,7 @@ public class TileEntityTurntable extends TileEntity implements IMechSubtype, ITi
     @Override
     public void update() {
         if (!this.getWorld().isRemote) {
-            if (getWorld().getBlockState(pos).getBlock() != null && getWorld().getBlockState(pos).getBlock() instanceof BlockMechMachines && ((BlockMechMachines) getWorld().getBlockState(pos).getBlock()).isMechanicalOn(getWorld(), pos)) {
+            if (getWorld().getBlockState(pos).getBlock() != null && getWorld().getBlockState(pos).getBlock() instanceof BlockTurntable && ((BlockTurntable) getWorld().getBlockState(pos).getBlock()).isMechanicalOn(getWorld(), pos)) {
                 //if(getWorld().getBlockState(pos).getValue(BlockMechMachines.SUBTYPE) != this.getSubtype())
                 //getWorld().setBlockState(pos, getWorld().getBlockState(pos).withProperty(BlockMechMachines.SUBTYPE, this.getSubtype()));
                 if (!asynchronous && getWorld().getTotalWorldTime() % (long) ticksToRotate[timerPos] == 0) {
@@ -157,7 +157,7 @@ public class TileEntityTurntable extends TileEntity implements IMechSubtype, ITi
     }
 
     public void rotateTurntable() {
-        boolean reverse = ((BlockMechMachines) getWorld().getBlockState(pos).getBlock()).isRedstonePowered(getWorld(), pos);
+        boolean reverse = ((BlockTurntable) getWorld().getBlockState(pos).getBlock()).isRedstonePowered(getWorld(), pos);
 
         this.potteryRotated = false;
 
@@ -177,7 +177,7 @@ public class TileEntityTurntable extends TileEntity implements IMechSubtype, ITi
         if (!potteryRotated)
             potteryRotation = 0;
 
-        getWorld().notifyBlockOfStateChange(pos, MechanicalBlocks.SINGLE_MACHINES);
+        getWorld().notifyBlockOfStateChange(pos, Machines.TURNTABLE);
     }
 
     public byte getTimerPos() {

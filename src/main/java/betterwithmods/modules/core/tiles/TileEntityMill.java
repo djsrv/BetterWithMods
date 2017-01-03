@@ -7,7 +7,7 @@ import betterwithmods.base.blocks.tile.TileBasicInventory;
 import betterwithmods.base.util.BWMSounds;
 import betterwithmods.base.util.InvUtils;
 import betterwithmods.base.util.MechanicalUtil;
-import betterwithmods.modules.core.blocks.BlockMechMachines;
+import betterwithmods.modules.core.blocks.BlockMill;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,10 +60,10 @@ public class TileEntityMill extends TileBasicInventory implements ITickable, IMe
 
         Block block = this.getWorld().getBlockState(this.pos).getBlock();
 
-        if (block == null || !(block instanceof BlockMechMachines))
+        if (block == null || !(block instanceof BlockMill))
             return;
 
-        BlockMechMachines mill = (BlockMechMachines) block;
+        BlockMill mill = (BlockMill) block;
 
         if (counter == 20) {
             powerLevel = getMechanicalInput(EnumFacing.DOWN);

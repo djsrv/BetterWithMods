@@ -1,6 +1,7 @@
 package betterwithmods.modules.aesthetic.features;
 
 import betterwithmods.base.blocks.ItemBlockMeta;
+import betterwithmods.base.client.ModelHandler;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.modules.aesthetic.blocks.BlockAesthetic;
 import net.minecraft.block.Block;
@@ -21,5 +22,10 @@ public class BuildingBlocks extends Feature {
         AESTHETIC = new BlockAesthetic().setRegistryName("aesthetic");
 
         registerBlock(AESTHETIC, new ItemBlockMeta(AESTHETIC));
+    }
+
+    @Override
+    public void preInitClient(FMLPreInitializationEvent event) {
+        ModelHandler.setInventoryModel(AESTHETIC);
     }
 }

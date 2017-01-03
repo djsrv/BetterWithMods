@@ -4,7 +4,7 @@ import betterwithmods.api.block.IMultiVariants;
 import betterwithmods.api.block.ISoulSensitive;
 import betterwithmods.base.blocks.BWMBlock;
 import betterwithmods.base.util.InvUtils;
-import betterwithmods.modules.core.features.MechanicalBlocks;
+import betterwithmods.modules.core.features.Machines;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -128,11 +128,8 @@ public class BlockUrn extends BWMBlock implements ISoulSensitive, IMultiVariants
     public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
         BlockPos up = pos.up();
         Block block = world.getBlockState(up).getBlock();
-        if (block != null && block == MechanicalBlocks.SINGLE_MACHINES) {
-            if (world.getBlockState(up).getValue(BlockMechMachines.MACHINETYPE) == BlockMechMachines.EnumType.HOPPER) {
-                return state.withProperty(UNDERHOPPER, true);
-            }
-        }
+        if (block != null && block == Machines.FILTERED_HOPPER)
+            return state.withProperty(UNDERHOPPER, true);
         return state;
     }
 

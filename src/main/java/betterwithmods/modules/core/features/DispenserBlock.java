@@ -1,5 +1,6 @@
 package betterwithmods.modules.core.features;
 
+import betterwithmods.base.client.ModelHandler;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.base.modules.ModuleLoader;
 import betterwithmods.modules.core.blocks.BlockBDispenser;
@@ -43,6 +44,12 @@ public class DispenserBlock extends Feature {
         registerBlock(BLOCK_DISPENSER);
         registerBlock(WOLF);
         registerTile(TileEntityBlockDispenser.class, "bwm.block_dispenser");
+    }
+
+    @Override
+    public void preInitClient(FMLPreInitializationEvent event) {
+        ModelHandler.setInventoryModel(BLOCK_DISPENSER);
+        ModelHandler.setInventoryModel(WOLF);
     }
 
     public static FakePlayer player;

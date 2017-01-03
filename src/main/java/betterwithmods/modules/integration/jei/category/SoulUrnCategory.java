@@ -1,7 +1,7 @@
 package betterwithmods.modules.integration.jei.category;
 
 import betterwithmods.base.BWMod;
-import betterwithmods.modules.core.features.MechanicalBlocks;
+import betterwithmods.modules.core.features.Machines;
 import betterwithmods.modules.core.features.Pottery;
 import betterwithmods.modules.integration.jei.wrapper.SoulUrnWrapper;
 import mezz.jei.api.IGuiHelper;
@@ -80,7 +80,7 @@ public class SoulUrnCategory extends BlankRecipeCategory<SoulUrnWrapper> {
         guiItemStacks.init(5, false, x, y + 45); //hopper
 
         guiItemStacks.set(ingredients);
-        guiItemStacks.set(4, new ItemStack(MechanicalBlocks.SINGLE_MACHINES, 1, 4));
+        guiItemStacks.set(4, new ItemStack(Machines.FILTERED_HOPPER, 1, 4));
         guiItemStacks.set(5, new ItemStack(Pottery.URN, 1, 0));
 
 

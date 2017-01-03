@@ -1,6 +1,5 @@
 package betterwithmods.modules.core.blocks;
 
-import betterwithmods.modules.core.features.Kiln;
 import betterwithmods.modules.core.features.Stoking;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
@@ -58,10 +57,10 @@ public class BlockFireStoked extends BlockFire {
         BlockPos above = pos.up();
         if (world.getBlockState(above).getBlock() == Blocks.BRICK_BLOCK) {
             if (this.isValidKiln(world, above))
-                world.setBlockState(above, Kiln.KILN.getDefaultState());
+                world.setBlockState(above, Stoking.KILN.getDefaultState());
         } else if (Loader.isModLoaded("terrafirmacraft") && world.getBlockState(above).getBlock() == Block.REGISTRY.getObject(new ResourceLocation("terrafirmacraft", "FireBrick"))) {
             if (this.isValidKiln(world, above))
-                world.setBlockState(above, Kiln.KILN.getDefaultState());
+                world.setBlockState(above, Stoking.KILN.getDefaultState());
         }
         if (world.getBlockState(pos).getBlock() == Stoking.STOKED_FLAME) { //Attempt at alleviating an OptiFine crash
             int meta = world.getBlockState(pos).getValue(AGE);

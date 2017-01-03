@@ -1,6 +1,7 @@
 package betterwithmods.modules.core.features;
 
 import betterwithmods.base.blocks.ItemBlockMeta;
+import betterwithmods.base.client.ModelHandler;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.modules.core.blocks.BlockCookingPot;
 import betterwithmods.modules.core.client.render.model.TESRCauldron;
@@ -27,6 +28,8 @@ public class CookingPots extends Feature {
 
     @Override
     public void preInitClient(FMLPreInitializationEvent event) {
+        ModelHandler.setInventoryModel(COOKING_POTS);
+
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCrucible.class, new TESRCrucible());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCauldron.class, new TESRCauldron());
     }

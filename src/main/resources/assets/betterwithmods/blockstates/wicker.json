@@ -4,7 +4,7 @@
     "textures": {
       "side": "betterwithmods:blocks/wicker"
     },
-    "model": "betterwithmods:wicker_inv"
+    "model": "betterwithmods:pane_main"
   },
   "variants": {
     "normal": [
@@ -14,6 +14,49 @@
       {
         "transform": "forge:default-block"
       }
-    ]
+    ],
+    "north": {
+      "true": {
+        "submodel": {
+          "ext0": {
+            "model": "betterwithmods:wicker_extension",
+            "y": 90
+          }
+        }
+      },
+      "false": {}
+    },
+    "east": {
+      "true": {
+        "submodel": {
+          "ext1": {
+            "model": "betterwithmods:wicker_extension",
+            "y": 180
+          }
+        }
+      },
+      "false": {}
+    },
+    "south": {
+      "true": {
+        "submodel": {
+          "ext2": {
+            "model": "betterwithmods:wicker_extension",
+            "y": 270
+          }
+        }
+      },
+      "false": {}
+    },
+    "west": {
+      "true": {
+        "submodel": {
+          "ext3": {
+            "model": "betterwithmods:wicker_extension"
+          }
+        }
+      },
+      "false": {}
+    }
   }
 }

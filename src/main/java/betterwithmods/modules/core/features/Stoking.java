@@ -2,10 +2,12 @@ package betterwithmods.modules.core.features;
 
 import betterwithmods.base.BWMod;
 import betterwithmods.base.client.BWStateMapper;
+import betterwithmods.base.client.ModelHandler;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.modules.core.blocks.BlockBellows;
 import betterwithmods.modules.core.blocks.BlockFireStoked;
 import betterwithmods.modules.core.blocks.BlockHibachi;
+import betterwithmods.modules.core.blocks.BlockKiln;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -14,6 +16,7 @@ import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.item.Item;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -30,26 +33,46 @@ public class Stoking extends Feature {
     public static Block STOKED_FLAME;
     public static Block HIBACHI;
     public static Block BELLOWS;
+    public static Block KILN;
+
+    public static Item GROUND_NETHERRACK;
+    public static Item CONCENTRATE_HELLFIRE;
+    public static Item HELLFIRE_DUST;
+
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         STOKED_FLAME = new BlockFireStoked().setRegistryName("stoked_flame");
         HIBACHI = new BlockHibachi().setRegistryName("hibachi");
         BELLOWS = new BlockBellows().setRegistryName("bellows");
+        KILN = new BlockKiln().setRegistryName("kiln");
+
+        GROUND_NETHERRACK = new Item().setRegistryName("ground_netherrack");
+        CONCENTRATE_HELLFIRE = new Item().setRegistryName("concentrated_hellfire");
+        HELLFIRE_DUST = new Item().setRegistryName("hellfire_dust");
+
         registerBlock(STOKED_FLAME, null);
         registerBlock(HIBACHI);
         registerBlock(BELLOWS);
+        registerBlock(KILN, null);
     }
 
     @Override
     public void preInitClient(FMLPreInitializationEvent event) {
+
+        ModelHandler.setInventoryModel(HIBACHI);
+        ModelHandler.setInventoryModel(BELLOWS);
+
+        ModelHandler.setInventoryModel(GROUND_NETHERRACK);
+        ModelHandler.setInventoryModel(CONCENTRATE_HELLFIRE);
+        ModelHandler.setInventoryModel(HELLFIRE_DUST);
+
         ModelLoader.setCustomStateMapper(STOKED_FLAME, new BWStateMapper(STOKED_FLAME.getRegistryName().toString()));
     }
 
     @SubscribeEvent
     public void onRenderFireOverlay(RenderBlockOverlayEvent e) {
         if (e.getOverlayType() == RenderBlockOverlayEvent.OverlayType.FIRE) {
-            //TODO
             if (e.getPlayer().getEntityWorld().getBlockState(e.getBlockPos()).getBlock() == STOKED_FLAME) {
                 renderFireInFirstPerson();
                 e.setCanceled(true);

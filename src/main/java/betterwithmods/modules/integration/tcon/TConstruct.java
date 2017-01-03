@@ -55,7 +55,7 @@ public class TConstruct extends Feature {
         TinkerRegistry.addMaterialStats(soulforgedSteel, new HeadMaterialStats(875, 12.0F, 6.0F, HarvestLevels.OBSIDIAN), new HandleMaterialStats(1.0F, 225), new ExtraMaterialStats(50));
         TinkerRegistry.addMaterialStats(hellfire, new HeadMaterialStats(325, 8.0F, 4.0F, HarvestLevels.DIAMOND), new HandleMaterialStats(0.75F, 75), new ExtraMaterialStats(25));
         registerMaterial(soulforgedSteel, soulforgeFluid, "SoulforgedSteel");
-        registerMaterial(hellfire, hellfireFluid, "Hellfire");
+        registerMaterial(hellfire, hellfireFluid, "SoulSteel");
         fixHellfireDust();
         netherWhitelist();
     }

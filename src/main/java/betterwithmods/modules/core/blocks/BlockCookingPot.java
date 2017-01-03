@@ -45,7 +45,7 @@ import java.util.Random;
  * @version 1/2/17
  */
 public class BlockCookingPot extends BWMBlock implements IMechanicalBlock, ITileEntityProvider, IMultiVariants {
-    public static final PropertyBool ISACTIVE = PropertyBool.create("ison");
+    public static final PropertyBool ISACTIVE = PropertyBool.create("active");
 
     public enum EnumType implements IStringSerializable {
         CRUCIBLE("crucible"), CAULDRON("cauldron");

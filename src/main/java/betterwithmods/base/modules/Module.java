@@ -78,6 +78,20 @@ public class Module {
             feature.setupConstantConfig();
 
             if(!feature.forceLoad) {
+                //TODO make sure dependencies load before the dependent
+                //Issue is that dependencies can be in another module, while this is loop is only per module, possible make module loading sort itself, then make features sort themselves
+                Class<? extends Feature>[] dependencies = feature.getDependencies();
+                if(dependencies != null) {
+                    List<String> failiures = new ArrayList();
+                    for(Class<? extends Feature> f:dependencies)
+                        if(f != null && !ModuleLoader.isFeatureEnabled(f)) {
+                            feature.enabled = false;
+                            try { failiures.add(f.newInstance().configName); } catch(Throwable e) {}
+                        }
+
+                    if(!failiures.isEmpty())
+                        FMLLog.info("[%s] '%s' is forcefully disabled as the following dependencies were not loaded: %s", BWMod.MODID,feature.configName,failiures );
+                }
                 String[] incompatibilities = feature.getIncompatibleMods();
                 if(incompatibilities != null) {
                     List<String> failiures = new ArrayList();
@@ -194,6 +208,10 @@ public class Module {
 
     public final String loadPropString(String propName, String desc, String default_) {
         return ConfigHelper.loadPropString(propName, name, desc, default_);
+    }
+
+    public Class<? extends Module> getDependencies() {
+        return null;
     }
 
 }

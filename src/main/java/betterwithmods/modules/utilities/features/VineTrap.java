@@ -1,6 +1,7 @@
 package betterwithmods.modules.utilities.features;
 
 import betterwithmods.base.client.ColorHandlers;
+import betterwithmods.base.client.ModelHandler;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.modules.utilities.blocks.BlockVineTrap;
 import net.minecraft.block.Block;
@@ -27,10 +28,11 @@ public class VineTrap extends Feature {
 
     }
 
+
     @Override
     public void preInitClient(FMLPreInitializationEvent event) {
+        ModelHandler.setInventoryModel(VINE_TRAP);
     }
-
     @Override
     public void initClient(FMLInitializationEvent event) {
         final BlockColors col = Minecraft.getMinecraft().getBlockColors();

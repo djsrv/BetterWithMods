@@ -2,6 +2,8 @@ package betterwithmods.base.blocks.mini;
 
 import betterwithmods.base.blocks.BWMBlock;
 import betterwithmods.base.util.InvUtils;
+import betterwithmods.modules.aesthetic.blocks.BlockAesthetic;
+import betterwithmods.modules.aesthetic.features.BuildingBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -163,8 +165,7 @@ public abstract class BlockMini extends BWMBlock {
 
         STONE(0, "stone", Blocks.STONE),
         STONEBRICK(1, "stone_brick", Blocks.STONEBRICK),
-        //TODO
-//        WHITESTONE(2, "whitestone", new ItemStack(BWMBlocks.AESTHETIC, 1, BlockAesthetic.EnumType.WHITESTONE.getMeta())),
+        WHITESTONE(2, "whitestone", new ItemStack(BuildingBlocks.AESTHETIC, 1, BlockAesthetic.EnumType.WHITESTONE.getMeta())),
         NETHERBRICK(3, "nether_brick", Blocks.NETHER_BRICK),
         BRICK(4, "brick", Blocks.BRICK_BLOCK),
         SANDSTONE(5, "sandstone", Blocks.SANDSTONE);

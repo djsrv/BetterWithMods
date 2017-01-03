@@ -24,7 +24,6 @@ public class BWMod {
     @Mod.Instance(BWMod.MODID)
     public static BWMod instance;
 
-
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {
         logger = e.getModLog();
@@ -41,11 +40,9 @@ public class BWMod {
         proxy.postInit(e);
     }
 
-
     @Mod.EventHandler
     public void serverStarting(FMLServerStartingEvent e) {
         proxy.serverStarting(e);
     }
-
 
 }

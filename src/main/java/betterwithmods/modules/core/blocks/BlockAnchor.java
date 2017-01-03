@@ -3,7 +3,7 @@ package betterwithmods.modules.core.blocks;
 import betterwithmods.api.block.ITurnable;
 import betterwithmods.base.client.BWCreativeTabs;
 import betterwithmods.base.util.InvUtils;
-import betterwithmods.modules.core.features.MechanicalBlocks;
+import betterwithmods.modules.core.features.Hemp;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
@@ -105,8 +105,8 @@ public class BlockAnchor extends BlockDirectional implements ITurnable {
             }
             return false;
         } else if (!world.isRemote) {
-            if (retractRope(world, pos, player, (BlockRope) MechanicalBlocks.ROPE))
-                world.playSound(null, pos, MechanicalBlocks.ROPE.getSoundType(MechanicalBlocks.ROPE.getDefaultState(), world, null, null).getBreakSound(), SoundCategory.BLOCKS, 1, 1);
+            if (retractRope(world, pos, player, (BlockRope) Hemp.ROPE))
+                world.playSound(null, pos, Hemp.ROPE.getSoundType(Hemp.ROPE.getDefaultState(), world, null, null).getBreakSound(), SoundCategory.BLOCKS, 1, 1);
         }
         return true;
     }
@@ -184,7 +184,7 @@ public class BlockAnchor extends BlockDirectional implements ITurnable {
 
     private boolean isPulley(IBlockAccess world, BlockPos origin, EnumFacing facing) {
         BlockPos pos = origin.offset(facing);
-        return world.getBlockState(pos).getBlock() instanceof BlockMechMachines && world.getBlockState(pos).getValue(BlockMechMachines.MACHINETYPE) == BlockMechMachines.EnumType.PULLEY;
+        return world.getBlockState(pos).getBlock() instanceof BlockPulley;
     }
 
     @Override

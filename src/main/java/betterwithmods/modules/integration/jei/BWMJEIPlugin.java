@@ -1,6 +1,7 @@
 package betterwithmods.modules.integration.jei;
 
-import betterwithmods.modules.core.features.MechanicalBlocks;
+import betterwithmods.modules.core.features.CookingPots;
+import betterwithmods.modules.core.features.Machines;
 import betterwithmods.modules.integration.jei.category.CauldronRecipeCategory;
 import betterwithmods.modules.integration.jei.category.CrucibleRecipeCategory;
 import betterwithmods.modules.integration.jei.category.HopperRecipeCategory;
@@ -59,11 +60,11 @@ public class BWMJEIPlugin extends BlankModPlugin {
         reg.addRecipes(JEIRecipeRegistry.getSteelAnvilShapelessRecipes(helper));
         reg.addRecipes(JEIRecipeRegistry.getSteelAnvilShapedRecipes(helper));
 
-        reg.addRecipeCategoryCraftingItem(new ItemStack(MechanicalBlocks.SINGLE_MACHINES, 1, 0), "bwm.mill");
-        reg.addRecipeCategoryCraftingItem(new ItemStack(MechanicalBlocks.SINGLE_MACHINES, 1, 2), "bwm.crucible", "bwm.crucible.stoked");
-        reg.addRecipeCategoryCraftingItem(new ItemStack(MechanicalBlocks.SINGLE_MACHINES, 1, 3), "bwm.cauldron", "bwm.cauldron.stoked");
-        reg.addRecipeCategoryCraftingItem(new ItemStack(MechanicalBlocks.SINGLE_MACHINES, 1, 4), "bwm.hopper", "bwm.hopper.soul_urn");
-        reg.addRecipeCategoryCraftingItem(new ItemStack(MechanicalBlocks.SINGLE_MACHINES, 1, 5), "bwm.turntable");
+        reg.addRecipeCategoryCraftingItem(new ItemStack(Machines.MILL), "bwm.mill");
+        reg.addRecipeCategoryCraftingItem(new ItemStack(CookingPots.COOKING_POTS,1, 1), "bwm.crucible", "bwm.crucible.stoked");
+        reg.addRecipeCategoryCraftingItem(new ItemStack(CookingPots.COOKING_POTS), "bwm.cauldron", "bwm.cauldron.stoked");
+        reg.addRecipeCategoryCraftingItem(new ItemStack(Machines.FILTERED_HOPPER), "bwm.hopper", "bwm.hopper.soul_urn");
+        reg.addRecipeCategoryCraftingItem(new ItemStack(Machines.TURNTABLE), "bwm.turntable");
         //TODO
 //        reg.addRecipeCategoryCraftingItem(new ItemStack(BWMBlocks.SAW), "bwm.saw");
         reg.addRecipeCategoryCraftingItem(new ItemStack(Blocks.BRICK_BLOCK), "bwm.kiln");

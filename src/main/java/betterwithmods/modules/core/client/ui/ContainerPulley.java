@@ -1,6 +1,6 @@
 package betterwithmods.modules.core.client.ui;
 
-import betterwithmods.modules.core.features.MechanicalBlocks;
+import betterwithmods.modules.core.features.Hemp;
 import betterwithmods.modules.core.tiles.TileEntityPulley;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -20,7 +20,7 @@ public class ContainerPulley extends Container {
             addSlotToContainer(new SlotItemHandler(tile.inventory, i, 53 + i * 18, 52) {
                 @Override
                 public boolean isItemValid(ItemStack stack) {
-                    return super.isItemValid(stack) && stack.getItem() == Item.getItemFromBlock(MechanicalBlocks.ROPE);
+                    return super.isItemValid(stack) && stack.getItem() == Item.getItemFromBlock(Hemp.ROPE);
                 }
             });
         }

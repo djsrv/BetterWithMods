@@ -30,7 +30,7 @@ public final class BlockRope extends BWMBlock {
 
     public static boolean placeRopeUnder(BlockRope rope, ItemStack stack, World world, BlockPos pos, EntityPlayer player) {
         if (stack != null || player == null) {
-            BlockPos bp = getLowestRopeBlock(world, pos,rope).down();
+            BlockPos bp = getLowestRopeBlock(world, pos, rope).down();
             Block block = world.getBlockState(bp).getBlock();
             if ((world.isAirBlock(bp) || block.isReplaceable(world, bp)) && rope.canBlockStay(world, bp)) {
                 world.setBlockState(bp, rope.getDefaultState());
@@ -48,7 +48,7 @@ public final class BlockRope extends BWMBlock {
             BlockPos down = pos.down();
             Block below = world.getBlockState(down).getBlock();
             if (below == rope) {
-                return getLowestRopeBlock(world, down,rope);
+                return getLowestRopeBlock(world, down, rope);
             } else {
                 return pos;
             }
@@ -60,7 +60,7 @@ public final class BlockRope extends BWMBlock {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (heldItem != null && heldItem.getItem() instanceof ItemBlock && ((ItemBlock) heldItem.getItem()).getBlock() == this) {
-            return placeRopeUnder(this,heldItem, worldIn, pos, playerIn);
+            return placeRopeUnder(this, heldItem, worldIn, pos, playerIn);
         }
         return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
     }
@@ -77,20 +77,12 @@ public final class BlockRope extends BWMBlock {
         Block blockAbove = world.getBlockState(pos.up()).getBlock();
 
         boolean supported = false;
-
+        
         if (blockAbove instanceof BlockAnchor) {
             EnumFacing facing = ((BlockAnchor) blockAbove).getFacingFromBlockState(world.getBlockState(pos.up()));
             supported = facing != EnumFacing.UP;
         }
-        if (blockAbove == this) {
-            supported = true;
-        }
-        if (blockAbove instanceof BlockMechMachines) {
-            if (world.getBlockState(pos.up()).getValue(BlockMechMachines.MACHINETYPE) == BlockMechMachines.EnumType.PULLEY) {
-                supported = true;
-            }
-        }
-
+        supported &= blockAbove instanceof BlockPulley || blockAbove == this;
         return supported;
     }
 

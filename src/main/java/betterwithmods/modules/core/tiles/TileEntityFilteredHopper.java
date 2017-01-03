@@ -4,12 +4,12 @@ import betterwithmods.api.block.ISoulSensitive;
 import betterwithmods.api.crafting.HopperInteractions;
 import betterwithmods.base.blocks.tile.IMechSubtype;
 import betterwithmods.base.blocks.tile.TileEntityVisibleInventory;
+import betterwithmods.modules.core.blocks.BlockFilteredHopper;
 import betterwithmods.modules.core.client.render.model.filters.ModelWithResource;
 import betterwithmods.base.util.RenderUtils;
 import betterwithmods.base.util.InvUtils;
-import betterwithmods.modules.core.blocks.BlockMechMachines;
 import betterwithmods.modules.core.features.HopperFilters;
-import betterwithmods.modules.core.features.MechanicalBlocks;
+import betterwithmods.modules.core.features.Machines;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -103,12 +103,12 @@ public class TileEntityFilteredHopper extends TileEntityVisibleInventory impleme
     public void update() {
         if (this.getWorld().isRemote)
             return;
-        if (!(this.getWorld().getBlockState(this.pos).getBlock() instanceof BlockMechMachines))
+        if (!(this.getWorld().getBlockState(this.pos).getBlock() instanceof BlockFilteredHopper))
             return;
 
         boolean isOn = false;
-        if (getWorld().getBlockState(pos).getBlock() instanceof BlockMechMachines)
-            isOn = ((BlockMechMachines) MechanicalBlocks.SINGLE_MACHINES).isMechanicalOn(this.getWorld(), pos);
+        if (getWorld().getBlockState(pos).getBlock() instanceof BlockFilteredHopper)
+            isOn = ((BlockFilteredHopper) Machines.FILTERED_HOPPER).isMechanicalOn(this.getWorld(), pos);
         entityCollision();
         if (isOn) {
             attemptToEjectXPFromInv();
@@ -380,8 +380,7 @@ public class TileEntityFilteredHopper extends TileEntityVisibleInventory impleme
                 canEjectIntoWorld = true;
             else {
                 Block block = this.getWorld().getBlockState(down).getBlock();
-                int meta = block.damageDropped(this.getWorld().getBlockState(down));
-                if (block instanceof BlockMechMachines && (meta == 4 || meta == 12))
+                if (block instanceof BlockFilteredHopper)
                     shouldResetEjectCount = attemptToEjectXPIntoHopper(down);
                 else if (block.isReplaceable(this.getWorld(), down))
                     canEjectIntoWorld = true;
@@ -483,7 +482,7 @@ public class TileEntityFilteredHopper extends TileEntityVisibleInventory impleme
     }
 
     private void processSouls() {
-        boolean isOn = ((BlockMechMachines) MechanicalBlocks.SINGLE_MACHINES).isMechanicalOn(this.getWorld(), this.pos);
+        boolean isOn = ((BlockFilteredHopper) Machines.FILTERED_HOPPER).isMechanicalOn(this.getWorld(), this.pos);
         BlockPos down = pos.down();
         if (this.filterType == 6) {
             Block blockBelow = this.getWorld().getBlockState(down).getBlock();
@@ -496,8 +495,8 @@ public class TileEntityFilteredHopper extends TileEntityVisibleInventory impleme
             else if (soulsRetained > 7) {
                 if (spawnGhast())
                     this.getWorld().playSound(null, this.pos, SoundEvents.ENTITY_GHAST_SCREAM, SoundCategory.BLOCKS, 1.0F, getWorld().rand.nextFloat() * 0.1F + 0.8F);
-                if (getWorld().getBlockState(pos).getBlock() == MechanicalBlocks.SINGLE_MACHINES)
-                    ((BlockMechMachines) getWorld().getBlockState(pos).getBlock()).breakHopper(getWorld(), pos);
+                if (getWorld().getBlockState(pos).getBlock() == Machines.FILTERED_HOPPER)
+                    ((BlockFilteredHopper) getWorld().getBlockState(pos).getBlock()).overpower(getWorld(), pos);
             }
         } else
             this.soulsRetained = 0;

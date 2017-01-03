@@ -1,8 +1,9 @@
 package betterwithmods.modules.core.entities;
 
 import betterwithmods.base.util.AABBArray;
-import betterwithmods.modules.core.features.MechanicalBlocks;
+import betterwithmods.modules.core.features.Machines;
 import betterwithmods.modules.core.tiles.TileEntityPulley;
+import betterwithmods.modules.utilities.features.Pulley;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
@@ -203,7 +204,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
             }
         }
 
-        this.setPosition(pulley.getX() + 0.5, this.posY + (up ? MechanicalBlocks.upSpeed : -MechanicalBlocks.downSpeed),
+        this.setPosition(pulley.getX() + 0.5, this.posY + (up ? Machines.upSpeed : -Machines.downSpeed),
                 pulley.getZ() + 0.5);
 
     }
@@ -243,13 +244,13 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         entitiesInBlocks.forEach(e -> e.setPosition(e.posX, Math.max(e.posY, entMaxY.get(e) + newPosY - posY), e.posZ));
         entitiesInBlocks.forEach(e -> e.isAirBorne = false);
         entitiesInBlocks.forEach(e -> e.onGround = true);
-        entitiesInBlocks.forEach(e -> e.motionY = Math.max(up ? 0 : -MechanicalBlocks.downSpeed, e.motionY));
+        entitiesInBlocks.forEach(e -> e.motionY = Math.max(up ? 0 : -Machines.downSpeed, e.motionY));
 
     }
 
     private double getBlockStateHeight(IBlockState blockState) {
         return (blockState == null ? 1
-                : (blockState.getBlock() == MechanicalBlocks.ANCHOR ? 0.375F
+                : (blockState.getBlock() == Pulley.ANCHOR ? 0.375F
                 : (blockState.getBlock() instanceof BlockRailBase || blockState.getBlock() instanceof BlockRedstoneWire ? 0 : 1)));
     }
 
@@ -358,7 +359,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     public boolean isPathBlocked() {
         HashSet<BlockPos> blocked = new HashSet<>();
         blocks.forEach((vec, state) -> {
-            if (blocked.isEmpty() && !up || state.getBlock() != MechanicalBlocks.ANCHOR) {
+            if (blocked.isEmpty() && !up || state.getBlock() != Pulley.ANCHOR) {
                 BlockPos pos = this.pulley.down(this.pulley.getY() - targetY).add(vec);
                 if (up)
                     pos = pos.up();

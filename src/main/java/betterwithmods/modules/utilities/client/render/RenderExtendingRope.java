@@ -1,11 +1,15 @@
-package betterwithmods.modules.core.client.render;
+package betterwithmods.modules.utilities.client.render;
 
-import betterwithmods.modules.core.entities.EntityExtendingRope;
 import betterwithmods.base.util.AABBArray;
-import betterwithmods.modules.core.features.MechanicalBlocks;
+import betterwithmods.modules.core.entities.EntityExtendingRope;
+import betterwithmods.modules.core.features.Hemp;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BlockRendererDispatcher;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -35,7 +39,7 @@ public class RenderExtendingRope extends Render<EntityExtendingRope> {
     public void doRender(EntityExtendingRope entity, double x, double y, double z, float entityYaw,
                          float partialTicks) {
         World world = entity.getEntityWorld();
-        IBlockState iblockstate = MechanicalBlocks.ROPE.getDefaultState();
+        IBlockState iblockstate = Hemp.ROPE.getDefaultState();
         this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         GlStateManager.pushMatrix();
         GlStateManager.disableLighting();

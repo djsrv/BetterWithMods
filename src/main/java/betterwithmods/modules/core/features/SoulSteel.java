@@ -1,5 +1,6 @@
 package betterwithmods.modules.core.features;
 
+import betterwithmods.base.client.ModelHandler;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.modules.core.blocks.BlockSteelAnvil;
 import betterwithmods.modules.core.tiles.TileEntitySteelAnvil;
@@ -12,7 +13,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  * @author Tyler Marshall
  * @version 1/2/17
  */
-public class SteelAnvil extends Feature {
+public class SoulSteel extends Feature {
+
     public static Block STEEL_ANVIL;
 
     @Override
@@ -24,6 +26,6 @@ public class SteelAnvil extends Feature {
 
     @Override
     public void preInitClient(FMLPreInitializationEvent event) {
-        super.preInitClient(event);
+        ModelHandler.setInventoryModel(STEEL_ANVIL);
     }
 }

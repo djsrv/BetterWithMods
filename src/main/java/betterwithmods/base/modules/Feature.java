@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Quark Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Quark
- *
+ * <p>
  * Quark is Open Source and distributed under the
  * CC-BY-NC-SA 3.0 License: https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB
- *
+ * <p>
  * File Created @ [18/03/2016, 22:46:32 (GMT)]
  */
 package betterwithmods.base.modules;
@@ -32,6 +32,8 @@ public class Feature {
 
     public Module module;
 
+
+
     public boolean loadtimeDone;
     public boolean enabledAtLoadtime;
 
@@ -45,9 +47,9 @@ public class Feature {
 
     public final void setupConstantConfig() {
         String[] incompat = getIncompatibleMods();
-        if(incompat != null && incompat.length > 0) {
+        if (incompat != null && incompat.length > 0) {
             String desc = "This feature disables itself if any of the following mods are loaded: \n";
-            for(String s : incompat)
+            for (String s : incompat)
                 desc += (" - " + s + "\n");
             desc += "This is done to prevent content overlap.\nYou can turn this on to force the feature to be loaded even if the above mods are also loaded.";
 
@@ -94,6 +96,8 @@ public class Feature {
     public String[] getIncompatibleMods() {
         return null;
     }
+
+    public Class<? extends Feature>[] getDependencies() { return null; }
 
     public boolean hasSubscriptions() {
         return false;
@@ -168,19 +172,19 @@ public class Feature {
     }
 
     public final int loadPropInt(String propName, String desc, int default_, int min, int max) {
-        return ConfigHelper.loadPropInt(propName, configCategory, desc, MathHelper.clamp(default_,min,max));
+        return ConfigHelper.loadPropInt(propName, configCategory, desc, MathHelper.clamp(default_, min, max));
     }
 
     public final int loadPropInt(String propName, String desc, int default_) {
-        return loadPropInt(propName, desc, default_,0,Integer.MAX_VALUE);
+        return loadPropInt(propName, desc, default_, 0, Integer.MAX_VALUE);
     }
 
     public final double loadPropDouble(String propName, String desc, double default_, double min, double max) {
-        return ConfigHelper.loadPropDouble(propName, configCategory, desc, MathHelper.clamp(default_,min,max));
+        return ConfigHelper.loadPropDouble(propName, configCategory, desc, MathHelper.clamp(default_, min, max));
     }
 
     public final double loadPropDouble(String propName, String desc, int default_) {
-        return loadPropDouble(propName, desc, default_,0,Double.MAX_VALUE);
+        return loadPropDouble(propName, desc, default_, 0, Double.MAX_VALUE);
     }
 
     public final boolean loadPropBool(String propName, String desc, boolean default_) {

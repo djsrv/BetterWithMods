@@ -2,11 +2,10 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "top": "betterwithmods:blocks/cauldron_top",
-      "bottom": "betterwithmods:blocks/cauldron_bottom",
-      "side": "betterwithmods:blocks/cauldron_side"
+      "up": "betterwithmods:blocks/hopper_top",
+      "side": "blocks/planks_oak"
     },
-    "model": "betterwithmods:cooking_vat",
+    "model": "betterwithmods:hopper",
     "uvlock": false
   },
   "variants": {
@@ -17,6 +16,10 @@
       {
         "transform": "forge:default-block"
       }
-    ]
+    ],
+    "active": {
+      "true": {},
+      "false": {}
+    }
   }
 }

@@ -1,6 +1,7 @@
 package betterwithmods.modules.aesthetic.features;
 
 import betterwithmods.base.blocks.ItemBlockMeta;
+import betterwithmods.base.client.ModelHandler;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.modules.utilities.blocks.BlockWoodBench;
 import betterwithmods.modules.utilities.blocks.BlockWoodTable;
@@ -24,5 +25,11 @@ public class Furniture extends Feature {
 
         registerBlock(WOOD_BENCH, new ItemBlockMeta(WOOD_BENCH));
         registerBlock(WOOD_TABLE, new ItemBlockMeta(WOOD_TABLE));
+    }
+
+    @Override
+    public void preInitClient(FMLPreInitializationEvent event) {
+        ModelHandler.setInventoryModel(WOOD_BENCH);
+        ModelHandler.setInventoryModel(WOOD_TABLE);
     }
 }

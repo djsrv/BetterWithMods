@@ -65,6 +65,7 @@ public class HCStumping extends Feature {
     @Override
     public void preInitClient(FMLPreInitializationEvent event) {
         ModelHandler.setInventoryModel(STUMP_REMOVER);
+        ModelHandler.setInventoryModel(STUMP);
     }
 
     @Override

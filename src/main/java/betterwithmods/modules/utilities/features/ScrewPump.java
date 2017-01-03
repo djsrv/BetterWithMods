@@ -1,5 +1,6 @@
 package betterwithmods.modules.utilities.features;
 
+import betterwithmods.base.client.ModelHandler;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.modules.core.blocks.BlockPump;
 import betterwithmods.modules.core.blocks.BlockTemporaryWater;
@@ -25,8 +26,9 @@ public class ScrewPump extends Feature {
         registerBlock(TEMP_LIQUID_SOURCE, null);
     }
 
+
     @Override
     public void preInitClient(FMLPreInitializationEvent event) {
-
+        ModelHandler.setInventoryModel(PUMP);
     }
 }

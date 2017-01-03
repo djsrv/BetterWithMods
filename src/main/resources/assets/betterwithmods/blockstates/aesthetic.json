@@ -26,9 +26,7 @@
     "blocktype": {
       "chopping": {},
       "chopping_blood": {
-        "textures": {
-          "side": "betterwithmods:blocks/chop_block_dirty"
-        }
+
       },
       "steel": {
         "textures": {

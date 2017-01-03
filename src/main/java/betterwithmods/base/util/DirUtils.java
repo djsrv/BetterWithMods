@@ -26,7 +26,6 @@ public class DirUtils {
     public static final PropertyBool SOUTH = PropertyBool.create("south");
     public static final PropertyBool WEST = PropertyBool.create("west");
     public static final PropertyBool EAST = PropertyBool.create("east");
-
     public static void setEntityOrientationFacing(EntityLivingBase entity, EnumFacing side) {
         float pitch = 0.0F;
         float yaw = 0.0F;

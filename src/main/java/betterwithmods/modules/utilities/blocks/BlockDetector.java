@@ -4,7 +4,7 @@ import betterwithmods.base.blocks.BWMBlock;
 import betterwithmods.base.blocks.mini.BlockMini;
 import betterwithmods.base.util.DirUtils;
 import betterwithmods.modules.core.blocks.BlockHemp;
-import betterwithmods.modules.core.features.MechanicalBlocks;
+import betterwithmods.modules.utilities.features.Pulley;
 import betterwithmods.modules.utilities.features.Redstone;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
@@ -183,7 +183,7 @@ public class BlockDetector extends BWMBlock {
             BlockLens lens = (BlockLens) target;
             if (lens.getFacingFromBlockState(world.getBlockState(offset)) == DirUtils.getOpposite(getFacingFromBlockState(world.getBlockState(pos))) && lens.isLit(world, offset))
                 return true;
-        } else if (world.getBlockState(offset).isOpaqueCube() || world.getBlockState(offset).getBlock() == MechanicalBlocks.PLATFORM || world.getBlockState(offset).getBlock() instanceof BlockMini)
+        } else if (world.getBlockState(offset).isOpaqueCube() || world.getBlockState(offset).getBlock() == Pulley.PLATFORM || world.getBlockState(offset).getBlock() instanceof BlockMini)
             return true;
         else if (!world.getBlockState(offset).isOpaqueCube() && !world.isAirBlock(offset)) {
             int x = offset.getX();

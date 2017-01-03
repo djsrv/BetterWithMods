@@ -1,7 +1,7 @@
 package betterwithmods.modules.integration.jei.category;
 
 import betterwithmods.base.BWMod;
-import betterwithmods.modules.core.features.MechanicalBlocks;
+import betterwithmods.modules.core.features.Machines;
 import betterwithmods.modules.integration.jei.wrapper.TurntableRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -62,7 +62,7 @@ public class TurntableRecipeCategory extends BlankRecipeCategory<TurntableRecipe
         guiItemStacks.init(2, false, x + 27, y + 18);
         guiItemStacks.init(3, false, x, y + 18);
         guiItemStacks.set(ingredients);
-        guiItemStacks.set(3, new ItemStack(MechanicalBlocks.SINGLE_MACHINES, 1, 5));
+        guiItemStacks.set(3, new ItemStack(Machines.FILTERED_HOPPER, 1, 5));
 
     }
 }

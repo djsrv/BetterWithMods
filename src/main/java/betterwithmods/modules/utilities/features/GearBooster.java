@@ -1,5 +1,6 @@
 package betterwithmods.modules.utilities.features;
 
+import betterwithmods.base.client.ModelHandler;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.modules.utilities.blocks.BlockGearBoostedRail;
 import net.minecraft.block.Block;
@@ -18,5 +19,10 @@ public class GearBooster extends Feature {
     public void preInit(FMLPreInitializationEvent event) {
         BOOSTER = new BlockGearBoostedRail().setRegistryName("booster");
         registerBlock(BOOSTER);
+    }
+
+    @Override
+    public void preInitClient(FMLPreInitializationEvent event) {
+        ModelHandler.setInventoryModel(BOOSTER);
     }
 }

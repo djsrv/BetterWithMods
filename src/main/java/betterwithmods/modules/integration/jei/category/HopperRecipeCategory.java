@@ -1,7 +1,7 @@
 package betterwithmods.modules.integration.jei.category;
 
 import betterwithmods.base.BWMod;
-import betterwithmods.modules.core.features.MechanicalBlocks;
+import betterwithmods.modules.core.features.Machines;
 import betterwithmods.modules.integration.jei.wrapper.HopperRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -79,7 +79,7 @@ public class HopperRecipeCategory extends BlankRecipeCategory<HopperRecipeWrappe
 
         guiItemStacks.set(ingredients);
         guiItemStacks.set(3, ingredients.getOutputs(ItemStack.class).subList(1, 3));
-        guiItemStacks.set(4, new ItemStack(MechanicalBlocks.SINGLE_MACHINES, 1, 4));
+        guiItemStacks.set(4, new ItemStack(Machines.FILTERED_HOPPER, 1, 4));
 
 
     }

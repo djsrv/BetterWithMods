@@ -1,7 +1,7 @@
 package betterwithmods.modules.core.client.ui;
 
 import betterwithmods.api.crafting.steelanvil.CraftingManagerSteelAnvil;
-import betterwithmods.modules.core.features.SteelAnvil;
+import betterwithmods.modules.core.features.SoulSteel;
 import betterwithmods.modules.core.tiles.TileEntitySteelAnvil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -59,7 +59,7 @@ public class ContainerSteelAnvil extends Container {
 
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return this.world.getBlockState(pos).getBlock() == SteelAnvil.STEEL_ANVIL && playerIn.getDistanceSq(pos) <= 64.0D;
+        return this.world.getBlockState(pos).getBlock() == SoulSteel.STEEL_ANVIL && playerIn.getDistanceSq(pos) <= 64.0D;
     }
 
     @Override

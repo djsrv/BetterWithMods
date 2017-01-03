@@ -120,6 +120,8 @@ public class Food extends Feature {
         ModelHandler.setInventoryModel(RAW_KEBAB);
         ModelHandler.setInventoryModel(PORK_DINNER);
 
+        ModelHandler.setInventoryModel(RAW_PASTRY);
+
     }
 
     @SubscribeEvent
