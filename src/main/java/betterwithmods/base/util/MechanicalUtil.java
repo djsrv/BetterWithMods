@@ -1,11 +1,10 @@
 package betterwithmods.base.util;
 
-import betterwithmods.base.registry.BWMBlocks;
 import betterwithmods.api.block.IAxle;
 import betterwithmods.api.block.IMechanical;
 import betterwithmods.api.block.IMechanicalBlock;
 import betterwithmods.api.capabilities.MechanicalCapability;
-import betterwithmods.base.blocks.BlockAxle;
+import betterwithmods.modules.mechpower.features.HandCrank;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -77,7 +76,7 @@ public class MechanicalUtil {
         BlockPos offset = pos.offset(dir);
         Block block = world.getBlockState(offset).getBlock();
 
-        if (block == BWMBlocks.HAND_CRANK) {
+        if (block == HandCrank.HAND_CRANK) {
             IMechanicalBlock mech = (IMechanicalBlock) block;
 
             if (mech.isOutputtingMechPower(world, offset))
@@ -100,10 +99,11 @@ public class MechanicalUtil {
         for (int i = 2; i < 6; i++) {
             Block block = world.getBlockState(pos).getBlock();
             if (isAxle(block)) {
-                BlockAxle axle = (BlockAxle) block;
-
-                if (axle.isAxleOrientedToFacing(world, pos, EnumFacing.getFront(i)))
-                    axle.breakAxle(world, pos);
+                //TODO
+//                BlockAxle axle = (BlockAxle) blocks;
+//
+//                if (axle.isAxleOrientedToFacing(world, pos, EnumFacing.getFront(i)))
+//                    axle.breakAxle(world, pos);
             }
         }
     }

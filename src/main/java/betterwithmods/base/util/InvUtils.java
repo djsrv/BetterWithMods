@@ -34,6 +34,7 @@ public class InvUtils {
 
     }
 
+
     public static ItemStack getMatchingSuffixStack(ItemStack stack, String startingPrefix, String resultingPrefix) {
         List<ItemStack> list = getMatchingSuffix(stack, startingPrefix, resultingPrefix);
         if (list.size() > 0)
@@ -452,4 +453,34 @@ public class InvUtils {
         f = f / (float) inventory.getSlots();
         return MathHelper.floor(f * 14.0F) + (i > 0 ? 1 : 0);
     }
+    public static ItemStack attemptToInsert(IItemHandler inv, ItemStack stack) {
+        ItemStack leftover = null;
+        for (int slot = 0; slot < inv.getSlots() - 1; slot++) {
+            leftover = inv.insertItem(slot, stack, false);
+            if (leftover == null)
+                break;
+        }
+        return leftover;
+    }
+
+
+    public static boolean putDropInInventoryAllSlots(IItemHandler inv, EntityItem entityItem) {
+        boolean putAll = false;
+        if (entityItem == null) {
+            return false;
+        } else {
+            ItemStack itemstack = entityItem.getEntityItem().copy();
+            ItemStack leftovers = attemptToInsert(inv, itemstack);
+            if (leftovers != null && leftovers.stackSize != 0) {
+                entityItem.setEntityItemStack(leftovers);
+            } else {
+                putAll = true;
+                entityItem.setDead();
+            }
+            return putAll;
+        }
+    }
+
+
+
 }

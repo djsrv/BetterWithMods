@@ -1,7 +1,7 @@
 package betterwithmods.base.util.player;
 
-import betterwithmods.base.registry.BWMBlocks;
-import betterwithmods.base.util.item.ItemExt;
+import betterwithmods.modules.hardcore.feature.HCBouy;
+import betterwithmods.modules.hardcore.feature.HCStumping;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -100,9 +100,9 @@ public final class EntityPlayerExt {
     }
 
     /**
-     * Edit the speed of an entity.
+     * Edit the speed of an entities.
      *
-     * @param entity            The entity whose speed will be changed.
+     * @param entity            The entities whose speed will be changed.
      * @param speedModifierUUID Unique UUID for modification
      * @param name              Unique name for easier debugging
      * @param modifier          The speed will be multiplied by this number
@@ -125,7 +125,7 @@ public final class EntityPlayerExt {
 
         for (ItemStack stack : player.inventory.armorInventory) {
             if (stack != null)
-                weight += ItemExt.getWeight(stack);
+                weight += HCBouy.getWeight(stack);
         }
 
         return weight;
@@ -152,7 +152,7 @@ public final class EntityPlayerExt {
 
     public static boolean isCurrentToolEffectiveOnBlock(EntityPlayer player, BlockPos pos) {
         //Hardcore Stumping
-        if (player.getEntityWorld().getBlockState(pos).getBlock() == BWMBlocks.STUMP) {
+        if (player.getEntityWorld().getBlockState(pos).getBlock() == HCStumping.STUMP) {
             return false;
         }
 

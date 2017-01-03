@@ -41,7 +41,7 @@ public abstract class BlockMetaHandler {
         if (input.getItem() != null && input.getItem() instanceof ItemBlock) {
             addRecipe(((ItemBlock) input.getItem()).getBlock(), input.getMetadata(), products);
         } else {
-            BWMod.logger.info("BlockMeta input: %s must be a block", input);
+            BWMod.logger.info("BlockMeta input: %s must be a blocks", input);
         }
     }
 

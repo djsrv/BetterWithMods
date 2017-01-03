@@ -1,6 +1,6 @@
 package betterwithmods.modules.hardcore.world.gen.feature;
 
-import betterwithmods.base.blocks.BlockStump;
+import betterwithmods.modules.hardcore.blocks.BlockStump;
 import net.minecraft.block.BlockNewLog;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;

@@ -1,8 +1,12 @@
 package betterwithmods.modules.hardcore.feature;
 
-import betterwithmods.base.registry.BWMItems;
-import betterwithmods.base.blocks.BlockStump;
+import betterwithmods.base.blocks.ItemBlockMeta;
+import betterwithmods.base.client.ModelHandler;
 import betterwithmods.base.modules.Feature;
+import betterwithmods.base.modules.ModuleLoader;
+import betterwithmods.modules.tweaks.feature.ShearCreeper;
+import betterwithmods.modules.hardcore.blocks.BlockStump;
+import betterwithmods.modules.hardcore.items.ItemStumpRemover;
 import betterwithmods.modules.hardcore.world.gen.feature.WorldGenBigTreeWithStump;
 import betterwithmods.modules.hardcore.world.gen.feature.WorldGenBirchTreeWithStump;
 import betterwithmods.modules.hardcore.world.gen.feature.WorldGenCanopyTreeWithStump;
@@ -11,6 +15,7 @@ import betterwithmods.modules.hardcore.world.gen.feature.WorldGenMegaPineTreeWit
 import betterwithmods.modules.hardcore.world.gen.feature.WorldGenSavannaTreeWithStump;
 import betterwithmods.modules.hardcore.world.gen.feature.WorldGenTaiga2WithStump;
 import betterwithmods.modules.hardcore.world.gen.feature.WorldGenTreesWithStump;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockNewLog;
@@ -21,6 +26,7 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -29,6 +35,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.SaplingGrowTreeEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -43,16 +50,37 @@ import java.util.Random;
  * @version 1/1/17
  */
 public class HCStumping extends Feature {
+
+    public static Item STUMP_REMOVER;
+    public static Block STUMP;
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
+        STUMP_REMOVER = new ItemStumpRemover().setRegistryName("stump_remover");
+        STUMP = new BlockStump().setRegistryName("stump");
+
+        registerItem(STUMP_REMOVER);
+        registerBlock(STUMP, new ItemBlockMeta(STUMP));
+    }
+
+    @Override
+    public void preInitClient(FMLPreInitializationEvent event) {
+        ModelHandler.setInventoryModel(STUMP_REMOVER);
+    }
+
     @Override
     public void init(FMLInitializationEvent event) {
-        GameRegistry.addShapelessRecipe(new ItemStack(BWMItems.STUMP_REMOVER, 2), new ItemStack(BWMItems.CREEPER_OYSTER), new ItemStack(Blocks.RED_MUSHROOM), new ItemStack(Items.ROTTEN_FLESH));
+        if(ModuleLoader.isFeatureEnabled(ShearCreeper.class)) {
+            GameRegistry.addShapelessRecipe(new ItemStack(STUMP_REMOVER, 2), new ItemStack(ShearCreeper.CREEPER_OYSTER), new ItemStack(Blocks.RED_MUSHROOM), new ItemStack(Items.ROTTEN_FLESH));
+        } else {
+            GameRegistry.addShapelessRecipe(new ItemStack(STUMP_REMOVER, 2), new ItemStack(Blocks.RED_MUSHROOM), new ItemStack(Items.ROTTEN_FLESH));
+        }
     }
 
     /**
      * Hardcore Stumping
      * Checks various properties to find a {@link BlockPlanks.EnumType} for the state.
      *
-     * @param state State of the wooden block to get wood type from.
+     * @param state State of the wooden blocks to get wood type from.
      * @return The type if it has any, null otherwise.
      */
     @Nullable
@@ -203,7 +231,7 @@ public class HCStumping extends Feature {
     }
 
     /**
-     * Whether a tree could be on top of the block.
+     * Whether a tree could be on top of the blocks.
      * Copy of {@link BlockBush#canSustainBush(IBlockState)} build 2185
      *
      * @param state State to check.

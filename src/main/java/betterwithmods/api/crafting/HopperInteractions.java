@@ -1,20 +1,15 @@
 package betterwithmods.api.crafting;
 
-import betterwithmods.base.registry.BWMBlocks;
-import betterwithmods.base.blocks.tile.SimpleItemStackHandler;
-import betterwithmods.base.blocks.tile.TileEntityFilteredHopper;
-import betterwithmods.base.items.ItemMaterial;
 import betterwithmods.base.util.InvUtils;
+import betterwithmods.modules.core.features.Pottery;
+import betterwithmods.modules.core.tiles.TileEntityFilteredHopper;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,44 +24,46 @@ public class HopperInteractions {
     public static final ArrayList<HopperRecipe> recipes = new ArrayList<>();
 
     static {
-        recipes.add(new SoulUrn(ItemMaterial.getMaterial("ground_netherrack"), ItemMaterial.getMaterial("hellfire_dust")));
-        recipes.add(new SoulUrn(ItemMaterial.getMaterial("soul_dust"), ItemMaterial.getMaterial("sawdust")));
-        recipes.add(new HopperRecipe(5, new ItemStack(Blocks.GRAVEL), new ItemStack(Items.FLINT), new ItemStack(Blocks.SAND), new ItemStack(Blocks.SAND, 1, 1)) {
-            @Override
-            public void craft(EntityItem inputStack, World world, BlockPos pos) {
-                InvUtils.ejectStackWithOffset(world, inputStack.getPosition(), output);
-                TileEntityFilteredHopper tile = (TileEntityFilteredHopper) world.getTileEntity(pos);
-                SimpleItemStackHandler inventory = tile.inventory;
-                ItemStack sand = secondaryOutput.get(world.rand.nextInt(secondaryOutput.size())).copy();
-                if (!InvUtils.addItemStackToInv(inventory, sand)) {
-                    InvUtils.ejectStackWithOffset(world, inputStack.getPosition(), sand);
-                }
-                onCraft(world, pos, inputStack);
-            }
-        });
-        recipes.add(new HopperRecipe(6, new ItemStack(Blocks.SAND, 1, OreDictionary.WILDCARD_VALUE), null, new ItemStack(Blocks.SOUL_SAND)) {
-            @Override
-            public void craft(EntityItem inputStack, World world, BlockPos pos) {
-                onCraft(world, pos, inputStack);
-            }
 
-            @Override
-            public void onCraft(World world, BlockPos pos, EntityItem item) {
-                TileEntityFilteredHopper hopper = (TileEntityFilteredHopper) world.getTileEntity(pos);
-                int stackSize = hopper.soulsRetained;
-                if (stackSize > item.getEntityItem().stackSize)
-                    stackSize = item.getEntityItem().stackSize;
-                hopper.soulsRetained -= stackSize;
-                item.getEntityItem().stackSize -= stackSize;
-                EntityItem soul = new EntityItem(world, item.lastTickPosX, item.lastTickPosY, item.lastTickPosZ, new ItemStack(Blocks.SOUL_SAND, stackSize));
-                if (!InvUtils.addItemStackToInv(hopper.inventory, soul.getEntityItem())) {
-                    soul.setDefaultPickupDelay();
-                    world.spawnEntity(soul);
-                }
-                if (item.getEntityItem().stackSize < 1)
-                    item.setDead();
-            }
-        });
+        //TODO
+//        recipes.add(new SoulUrn(ItemMaterial.getMaterial("ground_netherrack"), ItemMaterial.getMaterial("hellfire_dust")));
+//        recipes.add(new SoulUrn(ItemMaterial.getMaterial("soul_dust"), ItemMaterial.getMaterial("sawdust")));
+//        recipes.add(new HopperRecipe(5, new ItemStack(Blocks.GRAVEL), new ItemStack(Items.FLINT), new ItemStack(Blocks.SAND), new ItemStack(Blocks.SAND, 1, 1)) {
+//            @Override
+//            public void craft(EntityItem inputStack, World world, BlockPos pos) {
+//                InvUtils.ejectStackWithOffset(world, inputStack.getPosition(), output);
+//                TileEntityFilteredHopper tiles = (TileEntityFilteredHopper) world.getTileEntity(pos);
+//                SimpleItemStackHandler inventory = tiles.inventory;
+//                ItemStack sand = secondaryOutput.get(world.rand.nextInt(secondaryOutput.size())).copy();
+//                if (!InvUtils.addItemStackToInv(inventory, sand)) {
+//                    InvUtils.ejectStackWithOffset(world, inputStack.getPosition(), sand);
+//                }
+//                onCraft(world, pos, inputStack);
+//            }
+//        });
+//        recipes.add(new HopperRecipe(6, new ItemStack(Blocks.SAND, 1, OreDictionary.WILDCARD_VALUE), null, new ItemStack(Blocks.SOUL_SAND)) {
+//            @Override
+//            public void craft(EntityItem inputStack, World world, BlockPos pos) {
+//                onCraft(world, pos, inputStack);
+//            }
+//
+//            @Override
+//            public void onCraft(World world, BlockPos pos, EntityItem item) {
+//                TileEntityFilteredHopper hopper = (TileEntityFilteredHopper) world.getTileEntity(pos);
+//                int stackSize = hopper.soulsRetained;
+//                if (stackSize > item.getEntityItem().stackSize)
+//                    stackSize = item.getEntityItem().stackSize;
+//                hopper.soulsRetained -= stackSize;
+//                item.getEntityItem().stackSize -= stackSize;
+//                EntityItem soul = new EntityItem(world, item.lastTickPosX, item.lastTickPosY, item.lastTickPosZ, new ItemStack(Blocks.SOUL_SAND, stackSize));
+//                if (!InvUtils.addItemStackToInv(hopper.inventory, soul.getEntityItem())) {
+//                    soul.setDefaultPickupDelay();
+//                    world.spawnEntity(soul);
+//                }
+//                if (item.getEntityItem().stackSize < 1)
+//                    item.setDead();
+//            }
+//        });
     }
 
     public static boolean attemptToCraft(int filterType, World world, BlockPos pos, EntityItem input) {
@@ -81,7 +78,7 @@ public class HopperInteractions {
 
     public static class SoulUrn extends HopperRecipe {
         public SoulUrn(ItemStack input, ItemStack output) {
-            super(6, input, output, new ItemStack(BWMBlocks.URN, 1, 8));
+            super(6, input, output, new ItemStack(Pottery.URN, 1, 8));
         }
 
         @Override

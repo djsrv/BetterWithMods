@@ -1,6 +1,7 @@
 package betterwithmods.base.modules.config;
 
 import betterwithmods.base.BWMod;
+import betterwithmods.base.modules.ModuleLoader;
 import betterwithmods.base.network.BWNetwork;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -32,7 +33,7 @@ public class ConfigSyncHandler {
 
         for (ConfigCategory serverCategory : categories) {
             // get the local equivalent
-            ConfigCategory category = BWConfig.config.getCategory(serverCategory.getName());
+            ConfigCategory category = ModuleLoader.config.getCategory(serverCategory.getName());
 
             // sync all the properties
             for (Map.Entry<String, Property> entry : serverCategory.entrySet()) {
@@ -58,8 +59,8 @@ public class ConfigSyncHandler {
         }
 
         // if we changed something... disconnect and tell the player to restart?
-        if (BWConfig.config.hasChanged()) {
-            BWConfig.config.save();
+        if (ModuleLoader.config.hasChanged()) {
+            ModuleLoader.config.save();
         }
 
         if (changed) {
@@ -74,7 +75,7 @@ public class ConfigSyncHandler {
             return;
 
         ConfigSyncPacket pkt = new ConfigSyncPacket();
-        pkt.categories.add(BWConfig.HARDCORE_CAT);
+        pkt.categories.add(ModuleLoader.config.getCategory("bwhardcore"));
         BWNetwork.sendTo(pkt, (EntityPlayerMP) evt.player);
     }
 

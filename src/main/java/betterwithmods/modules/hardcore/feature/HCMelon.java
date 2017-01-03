@@ -1,6 +1,6 @@
 package betterwithmods.modules.hardcore.feature;
 
-import betterwithmods.base.entity.EntityFallingGourd;
+import betterwithmods.modules.hardcore.entities.EntityFallingGourd;
 import betterwithmods.base.modules.Feature;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;

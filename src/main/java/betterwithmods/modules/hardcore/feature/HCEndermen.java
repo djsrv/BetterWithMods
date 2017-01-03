@@ -1,6 +1,6 @@
 package betterwithmods.modules.hardcore.feature;
 
-import betterwithmods.base.entity.ai.EndermanAgro;
+import betterwithmods.modules.hardcore.ai.EndermanAgro;
 import betterwithmods.base.modules.Feature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;

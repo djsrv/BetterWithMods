@@ -1,8 +1,9 @@
 package betterwithmods.modules.hardcore.world;
 
-import betterwithmods.base.registry.BWMBlocks;
-import betterwithmods.base.blocks.BlockAesthetic;
+import betterwithmods.modules.aesthetic.blocks.BlockChoppingBlock;
+import betterwithmods.modules.aesthetic.features.ChoppingBlock;
 import betterwithmods.modules.hardcore.feature.HCSpawn;
+import betterwithmods.modules.mechpower.features.HandCrank;
 import net.minecraft.block.BlockFlowerPot;
 import net.minecraft.block.BlockLadder;
 import net.minecraft.block.BlockPlanks;
@@ -217,8 +218,8 @@ public class BWComponentScatteredFeaturePieces extends ComponentScatteredFeature
         @Override
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
             boolean result = super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn);
-            this.setBlockState(worldIn, BWMBlocks.AESTHETIC.getDefaultState().withProperty(BlockAesthetic.blockType, BlockAesthetic.EnumType.CHOPBLOCKBLOOD), 5, 4, 11, structureBoundingBoxIn);
-            this.setBlockState(worldIn, BWMBlocks.AESTHETIC.getDefaultState().withProperty(BlockAesthetic.blockType, BlockAesthetic.EnumType.CHOPBLOCKBLOOD), 6, 4, 11, structureBoundingBoxIn);
+            this.setBlockState(worldIn, ChoppingBlock.CHOPPING_BLOCK.getDefaultState().withProperty(BlockChoppingBlock.DIRTY,true), 5, 4, 11, structureBoundingBoxIn);
+            this.setBlockState(worldIn, ChoppingBlock.CHOPPING_BLOCK.getDefaultState().withProperty(BlockChoppingBlock.DIRTY,true), 6, 4, 11, structureBoundingBoxIn);
             this.setAir(worldIn, 6, 3, 10, structureBoundingBoxIn);
             this.setAir(worldIn, 5, 3, 10, structureBoundingBoxIn);
 
@@ -253,7 +254,7 @@ public class BWComponentScatteredFeaturePieces extends ComponentScatteredFeature
                 removeChest(worldIn, 8, -3, 3, randomIn);
                 removeChest(worldIn, 9, -3, 10, randomIn);
             } else {
-                this.setBlockState(worldIn, BWMBlocks.HAND_CRANK.getDefaultState(), 5, 3, 10, structureBoundingBoxIn);
+                this.setBlockState(worldIn, HandCrank.HAND_CRANK.getDefaultState(), 5, 3, 10, structureBoundingBoxIn);
                 //TODO add Vessel of the Dragon @ 6, 3, 10
             }
 

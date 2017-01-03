@@ -52,4 +52,5 @@ public abstract class BWMBlock extends Block implements ITurnable {
     @Override
     public void rotateAroundYAxis(World world, BlockPos pos, boolean reverse) {
     }
+
 }

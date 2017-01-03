@@ -7,6 +7,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
@@ -21,6 +22,16 @@ import java.util.List;
 public class HCOre extends Feature {
     @Override
     public void init(FMLInitializationEvent event) {
+        RecipeUtils.removeRecipes(Items.COMPASS, 0);
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.COMPASS), " N ", "NRN", " N ", 'N', "nuggetIron", 'R', "dustRedstone"));
+        RecipeUtils.removeRecipes(Items.CLOCK, 0);
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.CLOCK), " N ", "NQN", " N ", 'N', "nuggetGold", 'Q', "gemQuartz"));
+        RecipeUtils.removeRecipes(Items.BUCKET, 0);
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.BUCKET), "N N", " N ", 'N', "nuggetIron"));
+    }
+
+    @Override
+    public void postInit(FMLPostInitializationEvent event) {
         for (ItemStack ore : InvUtils.oreNames) {
             ItemStack nugget = InvUtils.getMatchingSuffixStack(ore, "ore", "nugget");
             if (nugget != null) {
@@ -33,11 +44,5 @@ public class HCOre extends Feature {
                 }
             }
         }
-        RecipeUtils.removeRecipes(Items.COMPASS, 0);
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.COMPASS), " N ", "NRN", " N ", 'N', "nuggetIron", 'R', "dustRedstone"));
-        RecipeUtils.removeRecipes(Items.CLOCK, 0);
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.CLOCK), " N ", "NQN", " N ", 'N', "nuggetGold", 'Q', "gemQuartz"));
-        RecipeUtils.removeRecipes(Items.BUCKET, 0);
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.BUCKET), "N N", " N ", 'N', "nuggetIron"));
     }
 }

@@ -1,6 +1,5 @@
 package betterwithmods.modules.recipes.features;
 
-import betterwithmods.base.registry.BWMBlocks;
 import betterwithmods.api.crafting.OreStack;
 import betterwithmods.api.crafting.bulk.CraftingManagerCrucible;
 import betterwithmods.api.crafting.bulk.CraftingManagerCrucibleStoked;
@@ -31,10 +30,11 @@ public class CrucibleRecipes extends Feature {
     }
 
     public void stoked() {
+        //TODO
         addStokedCrucibleRecipe(new ItemStack(Blocks.GLASS), new ItemStack[]{new ItemStack(Blocks.SAND, 1, OreDictionary.WILDCARD_VALUE)});
         addStokedCrucibleRecipe(new ItemStack(Blocks.GLASS, 3), new ItemStack[]{new ItemStack(Blocks.GLASS_PANE, 8)});
         addStokedCrucibleRecipe(new ItemStack(Blocks.STONE), new ItemStack[]{new ItemStack(Blocks.COBBLESTONE)});
-        addStokedCrucibleRecipe(new ItemStack(BWMBlocks.AESTHETIC, 1, 6), new ItemStack[]{new ItemStack(BWMBlocks.AESTHETIC, 1, 7)});
+//        addStokedCrucibleRecipe(new ItemStack(BWMBlocks.AESTHETIC, 1, 6), new ItemStack[]{new ItemStack(BWMBlocks.AESTHETIC, 1, 7)});
         addOreStokedCrucibleRecipe(new ItemStack(Items.IRON_INGOT), new Object[]{new OreStack("nuggetIron", 9)});
     }
 

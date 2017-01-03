@@ -52,7 +52,7 @@ public class DirUtils {
         }
         entity.rotationYaw = yaw;
         entity.rotationPitch = pitch;
-        // entity.setAngles(yaw, pitch);
+        // entities.setAngles(yaw, pitch);
     }
 
     public static EnumFacing convertEntityOrientationToFacing(EntityLivingBase entity, EnumFacing side) {

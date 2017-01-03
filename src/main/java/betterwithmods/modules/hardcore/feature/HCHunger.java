@@ -1,14 +1,12 @@
 package betterwithmods.modules.hardcore.feature;
 
 
-import betterwithmods.base.registry.BWMBlocks;
 import betterwithmods.base.BWMod;
-import betterwithmods.base.client.gui.GuiHunger;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.base.modules.ModuleLoader;
 import betterwithmods.base.util.BWMFoodStats;
-import betterwithmods.base.util.item.ItemExt;
 import betterwithmods.base.util.player.EntityPlayerExt;
+import betterwithmods.modules.hardcore.client.ui.GuiHunger;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -19,7 +17,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemSoup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.FoodStats;
@@ -46,8 +43,20 @@ public class HCHunger extends Feature {
 
     @Override
     public void init(FMLInitializationEvent event) {
-        ItemExt.initDesserts();
+        initDesserts();
     }
+
+
+    public static void initDesserts() {
+        setDessert((ItemFood) Items.COOKIE);
+        setDessert((ItemFood) Items.PUMPKIN_PIE);
+    }
+
+    private static void setDessert(ItemFood food) {
+        food.setAlwaysEdible();
+    }
+
+
 
     private static GuiHunger guiHunger = null;
 
@@ -147,7 +156,7 @@ public class HCHunger extends Feature {
         IBlockState state = event.getState();
         float f = player.inventory.getStrVsBlock(state);
 
-        if (state.getBlock() == BWMBlocks.STUMP) {
+        if (ModuleLoader.isFeatureEnabled(HCStumping.class) && state.getBlock() == HCStumping.STUMP) {
             f = 1.0F;
         }
 
@@ -315,27 +324,6 @@ public class HCHunger extends Feature {
     }
 
 
-
-
-
-
-    @SubscribeEvent
-    public void saveSoup(LivingEntityUseItemEvent.Finish event) {
-        if (event.getItem() != null) {
-            if (event.getItem().getItem() instanceof ItemSoup) {
-                if (event.getItem().stackSize > 0) {
-                    ItemStack result = event.getResultStack();
-                    event.setResultStack(event.getItem());
-                    if (event.getEntityLiving() instanceof EntityPlayer) {
-                        EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-                        if (!player.inventory.addItemStackToInventory(result)) {
-                            player.dropItem(result, false);
-                        }
-                    }
-                }
-            }
-        }
-    }
 
 
     @Override

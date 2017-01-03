@@ -2,6 +2,7 @@ package betterwithmods.base.proxy;
 
 import betterwithmods.base.modules.ModuleLoader;
 import betterwithmods.base.registry.BWMRegistry;
+import betterwithmods.base.util.InvUtils;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -13,8 +14,6 @@ public class ServerProxy implements IProxy {
     public void preInit(FMLPreInitializationEvent e) {
         BWMRegistry.preInit();
         ModuleLoader.preInit(e);
-
-
     }
 
     @Override
@@ -26,9 +25,9 @@ public class ServerProxy implements IProxy {
 
     @Override
     public void postInit(FMLPostInitializationEvent e) {
-        BWMRegistry.postInit();
+        InvUtils.postInitOreDictGathering();
         ModuleLoader.postInit(e);
-
+        BWMRegistry.postInit();
     }
 
     @Override

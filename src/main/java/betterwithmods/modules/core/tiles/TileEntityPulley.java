@@ -1,0 +1,381 @@
+package betterwithmods.modules.core.tiles;
+
+import betterwithmods.base.BWMod;
+import betterwithmods.base.blocks.tile.TileEntityVisibleInventory;
+import betterwithmods.modules.core.blocks.BlockAnchor;
+import betterwithmods.modules.core.blocks.BlockMechMachines;
+import betterwithmods.modules.core.blocks.BlockRope;
+import betterwithmods.modules.core.entities.EntityExtendingRope;
+import betterwithmods.modules.core.features.MechanicalBlocks;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRailBase;
+import net.minecraft.block.BlockRailBase.EnumRailDirection;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.storage.AnvilChunkLoader;
+import net.minecraftforge.items.ItemStackHandler;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Formatter;
+import java.util.HashSet;
+import java.util.List;
+
+public class TileEntityPulley extends TileEntityVisibleInventory {
+
+    private EntityExtendingRope rope;
+    private NBTTagCompound ropeTag = null;
+
+    private boolean isRedstonePowered() {
+        return getWorld().getBlockState(pos).getBlock() != null && getWorld().isBlockPowered(pos);
+    }
+
+    public boolean isMechanicallyPowered() {
+        return getWorld().getBlockState(pos).getBlock() != null
+                && getWorld().getBlockState(pos).getBlock() instanceof BlockMechMachines
+                && ((BlockMechMachines) getWorld().getBlockState(pos).getBlock()).isMechanicalOn(getWorld(), pos);
+    }
+
+    @Override
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+        return oldState.getBlock() != newState.getBlock();
+    }
+
+    public boolean isRaising() {
+        return !isRedstonePowered() && isMechanicallyPowered();
+    }
+
+    public boolean isLowering() {
+        return !isRedstonePowered() && !isMechanicallyPowered();
+    }
+
+    @Override
+    public ItemStackHandler createItemStackHandler() {
+        return new ItemStackHandler(4);
+    }
+
+    @Override
+    public String getName() {
+        return "inv.pulley.name";
+    }
+
+    @Override
+    public int getMaxVisibleSlots() {
+        return 4;
+    }
+
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        int x = pos.getX();
+        int y = pos.getY();
+        int z = pos.getZ();
+        return player.getDistanceSq(x + 0.5D, y + 0.5D, z + 0.5D) <= 64.0D;
+    }
+
+    @Override
+    public void update() {
+        if (this.getWorld().isRemote)
+            return;
+
+        tryNextOperation();
+    }
+
+    private void tryNextOperation() {
+        if (!activeOperation() && this.getWorld().getBlockState(this.pos).getBlock() instanceof BlockMechMachines) {
+            if (canGoDown(false)) {
+                goDown();
+            } else if (canGoUp()) {
+                goUp();
+            }
+        }
+    }
+
+    private boolean canGoUp() {
+        if (isRaising()) {
+            if (putRope(false)) {
+                BlockPos lowest = BlockRope.getLowestRopeBlock(getWorld(), pos, (BlockRope) MechanicalBlocks.ROPE);
+                if (!lowest.equals(pos)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean canGoDown(boolean isMoving) {
+        if (isLowering()) {
+            if (takeRope(false)) {
+                BlockPos newPos = BlockRope.getLowestRopeBlock(getWorld(), pos, (BlockRope) MechanicalBlocks.ROPE).down();
+                IBlockState state = getWorld().getBlockState(newPos);
+                boolean flag = !isMoving && state.getBlock() == MechanicalBlocks.ANCHOR
+                        && ((BlockAnchor) MechanicalBlocks.ANCHOR).getFacingFromBlockState(state) == EnumFacing.UP;
+                if ((getWorld().isAirBlock(newPos) || state.getBlock().isReplaceable(getWorld(), newPos) || flag)
+                        && newPos.up().getY() > 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void goUp() {
+        BlockPos lowest = BlockRope.getLowestRopeBlock(getWorld(), pos, (BlockRope) MechanicalBlocks.ROPE);
+        IBlockState state = getWorld().getBlockState(lowest.down());
+        boolean flag = state.getBlock() == MechanicalBlocks.ANCHOR
+                && ((BlockAnchor) MechanicalBlocks.ANCHOR).getFacingFromBlockState(state) == EnumFacing.UP;
+        rope = new EntityExtendingRope(getWorld(), pos, lowest, lowest.up().getY());
+        if (!flag || movePlatform(lowest.down(), true)) {
+            getWorld().playSound(null, pos.down(), SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS,
+                    0.4F + (getWorld().rand.nextFloat() * 0.1F), 1.0F);
+            getWorld().spawnEntity(rope);
+            getWorld().setBlockToAir(lowest);
+            putRope(true);
+        } else {
+            rope = null;
+        }
+    }
+
+    private void goDown() {
+        BlockPos newPos = BlockRope.getLowestRopeBlock(getWorld(), pos, (BlockRope) MechanicalBlocks.ROPE).down();
+        IBlockState state = getWorld().getBlockState(newPos);
+        boolean flag = state.getBlock() == MechanicalBlocks.ANCHOR
+                && ((BlockAnchor) MechanicalBlocks.ANCHOR).getFacingFromBlockState(state) == EnumFacing.UP;
+        rope = new EntityExtendingRope(getWorld(), pos, newPos.up(), newPos.getY());
+        if (!flag || movePlatform(newPos, false)) {
+            getWorld().spawnEntity(rope);
+        } else {
+            rope = null;
+        }
+    }
+
+    /**
+     * Turns the platform into entities and moves them with the rope
+     */
+
+    private boolean movePlatform(BlockPos anchor, boolean up) {
+        IBlockState state = getWorld().getBlockState(anchor);
+        if (state.getBlock() != MechanicalBlocks.ANCHOR)
+            return false;
+
+        HashSet<BlockPos> platformBlocks = new HashSet<>();
+        platformBlocks.add(anchor);
+        Block b = getWorld().getBlockState(anchor.down()).getBlock();
+        boolean success = getWorld().getBlockState(anchor.down()).getBlock() == MechanicalBlocks.PLATFORM
+                ? addToList(platformBlocks, anchor.down(), up) : up || isValidBlock(b, anchor.down());
+        if (!success) {
+            return false;
+        }
+
+        for (BlockPos blockPos : platformBlocks) {
+            Arrays.asList(new BlockPos[]{blockPos.north(), blockPos.south()}).forEach(p -> {
+                if (!platformBlocks.contains(p)) {
+                    fixRail(p, EnumRailDirection.ASCENDING_NORTH, EnumRailDirection.ASCENDING_SOUTH);
+                }
+            });
+            Arrays.asList(new BlockPos[]{blockPos.east(), blockPos.west()}).forEach(p -> {
+                if (!platformBlocks.contains(p)) {
+                    fixRail(p, EnumRailDirection.ASCENDING_EAST, EnumRailDirection.ASCENDING_WEST);
+                }
+            });
+        }
+
+        if (!getWorld().isRemote) {
+            for (BlockPos blockPos : platformBlocks) {
+                IBlockState blockState = getWorld().getBlockState(blockPos.up());
+                b = blockState.getBlock();
+                blockState = (b == Blocks.REDSTONE_WIRE || b instanceof BlockRailBase ? blockState : null);
+                Vec3i offset = blockPos.subtract(anchor.up());
+                rope.addBlock(offset, getWorld().getBlockState(blockPos));
+                if (blockState != null) {
+                    rope.addBlock(new Vec3i(offset.getX(), offset.getY() + 1, offset.getZ()), blockState);
+                    getWorld().setBlockToAir(blockPos.up());
+                }
+                getWorld().setBlockToAir(blockPos);
+            }
+        }
+
+        return true;
+    }
+
+    public boolean isValidBlock(Block b, BlockPos pos) {
+        return b == Blocks.AIR || b.isReplaceable(getWorld(), pos) || b == MechanicalBlocks.PLATFORM;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void fixRail(BlockPos rail, EnumRailDirection... directions) {
+        List<EnumRailDirection> list = Arrays.asList(directions);
+        IBlockState state = getWorld().getBlockState(rail);
+        if (getWorld().getBlockState(rail).getBlock() instanceof BlockRailBase) {
+            PropertyEnum<EnumRailDirection> shape = null;
+            for (IProperty<?> p : state.getPropertyKeys()) {
+                if ("shape".equals(p.getName()) && p instanceof PropertyEnum<?>) {
+                    shape = (PropertyEnum<EnumRailDirection>) p;
+                    break;
+                }
+            }
+
+            if (shape != null) {
+                EnumRailDirection currentShape = state.getValue(shape);
+                if (list.contains(currentShape)) {
+                    getWorld().setBlockState(rail, state.withProperty(shape, flatten(currentShape)), 6);
+                }
+            } else {
+                Formatter f = new Formatter();
+                BWMod.logger.warn(f.format("Rail at %s has no shape?", rail));
+                f.close();
+            }
+        }
+    }
+
+    private EnumRailDirection flatten(EnumRailDirection old) {
+        switch (old) {
+            case ASCENDING_EAST:
+            case ASCENDING_WEST:
+                return EnumRailDirection.EAST_WEST;
+            case ASCENDING_NORTH:
+            case ASCENDING_SOUTH:
+                return EnumRailDirection.NORTH_SOUTH;
+            default:
+                return old;
+        }
+    }
+
+    private boolean addToList(HashSet<BlockPos> set, BlockPos p, boolean up) {
+        if (set.size() > MechanicalBlocks.maxPlatforms)
+            return false;
+
+        BlockPos blockCheck = up ? p.up() : p.down();
+
+        if (getWorld().getBlockState(p).getBlock() != MechanicalBlocks.PLATFORM) {
+            return true;
+        }
+
+        Block b = getWorld().getBlockState(blockCheck).getBlock();
+
+        if (b != Blocks.REDSTONE_WIRE && !(b instanceof BlockRailBase)) {
+            if (!(getWorld().isAirBlock(blockCheck) || b.isReplaceable(getWorld(), blockCheck) || b == MechanicalBlocks.PLATFORM)
+                    && !set.contains(blockCheck)) {
+                return false;
+            }
+        }
+
+        set.add(p);
+
+        List<BlockPos> fails = new ArrayList<>();
+
+        Arrays.asList(p.up(), p.down(), p.north(), p.south(), p.east(), p.west()).forEach(q -> {
+            if (fails.isEmpty() && !set.contains(q)) {
+                if (!addToList(set, q, up))
+                    fails.add(q);
+            }
+        });
+
+        return fails.isEmpty();
+    }
+
+    private boolean activeOperation() {
+        return rope != null && rope.isEntityAlive();
+    }
+
+    private boolean takeRope(boolean flag) {
+        for (int i = 0; i < 4; i++) {
+            ItemStack stack = inventory.getStackInSlot(i);
+            if (stack != null && stack.getItem() == Item.getItemFromBlock(MechanicalBlocks.ROPE) && stack.stackSize > 0) {
+                if (flag) {
+                    stack.stackSize--;
+                    if (stack.stackSize < 1) {
+                        inventory.setStackInSlot(i, null);
+                    }
+                    this.markDirty();
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean putRope(boolean flag) {
+        for (int i = 0; i < 4; i++) {
+            ItemStack stack = inventory.getStackInSlot(i);
+            if (stack == null || stack.getItem() == Item.getItemFromBlock(MechanicalBlocks.ROPE) && stack.stackSize < 64) {
+                if (flag) {
+                    if (stack == null) {
+                        inventory.setStackInSlot(i, new ItemStack(MechanicalBlocks.ROPE, 1));
+                    } else {
+                        stack.stackSize++;
+                    }
+                    this.markDirty();
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean onJobCompleted(boolean up, int targetY, EntityExtendingRope theRope) {
+        BlockPos ropePos = new BlockPos(pos.getX(), targetY - (up ? 1 : 0), pos.getZ());
+        IBlockState state = getWorld().getBlockState(ropePos);
+        if (!up) {
+            if ((getWorld().isAirBlock(ropePos) || state.getBlock().isReplaceable(getWorld(), ropePos)) && takeRope(true)) {
+                getWorld().playSound(null, pos.down(), SoundEvents.BLOCK_GRASS_PLACE, SoundCategory.BLOCKS, 0.4F, 1.0F);
+                getWorld().setBlockState(ropePos, MechanicalBlocks.ROPE.getDefaultState());
+            }
+        }
+        if ((theRope.getUp() ? canGoUp() : canGoDown(true)) && !theRope.isPathBlocked()) {
+            theRope.setTargetY(targetY + (theRope.getUp() ? 1 : -1));
+            if (up) {
+                if (!getWorld().isAirBlock(ropePos.up())) {
+                    getWorld().playSound(null, pos.down(), SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS,
+                            0.4F + (getWorld().rand.nextFloat() * 0.1F), 1.0F);
+                    getWorld().setBlockToAir(ropePos.up());
+                    putRope(true);
+                }
+            }
+            return true;
+        } else {
+            tryNextOperation();
+            theRope.setDead();
+            return false;
+        }
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound tag) {
+        NBTTagCompound ropetag = new NBTTagCompound();
+        if (rope != null)
+            rope.writeToNBTAtomically(ropetag);
+        tag.setTag("Rope", ropetag);
+        return super.writeToNBT(tag);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound tag) {
+        super.readFromNBT(tag);
+        this.ropeTag = (NBTTagCompound) tag.getTag("Rope");
+    }
+
+    @Override
+    public void setWorld(World worldIn) {
+        super.setWorld(worldIn);
+        if (rope == null && !worldIn.isRemote && ropeTag != null && !ropeTag.hasNoTags()) {
+            NBTTagList pos = (NBTTagList) ropeTag.getTag("Pos");
+            if (pos != null) {
+                rope = (EntityExtendingRope) AnvilChunkLoader.readWorldEntityPos(ropeTag, getWorld(), pos.getDoubleAt(0),
+                        pos.getDoubleAt(1), pos.getDoubleAt(2), true);
+            }
+        }
+    }
+
+}

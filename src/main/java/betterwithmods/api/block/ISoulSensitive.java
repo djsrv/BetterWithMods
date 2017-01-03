@@ -11,7 +11,7 @@ public interface ISoulSensitive {
     boolean isSoulSensitive(IBlockAccess world, BlockPos pos);
 
     /**
-     * How many souls your block can consume simultaneously.
+     * How many souls your blocks can consume simultaneously.
      */
     int getMaximumSoulIntake(IBlockAccess world, BlockPos pos);
 

@@ -13,11 +13,11 @@ public class BWMSounds {
     public static SoundEvent METALCHIME;
 
     public static void registerSounds() {
-        WOODCREAK = registerSound("block.wood.creak");
-        STONEGRIND = registerSound("block.stone.grind");
-        BELLOW = registerSound("block.wood.bellow");
-        WOODCHIME = registerSound("block.wood.chime");
-        METALCHIME = registerSound("block.metal.chime");
+        WOODCREAK = registerSound("blocks.wood.creak");
+        STONEGRIND = registerSound("blocks.stone.grind");
+        BELLOW = registerSound("blocks.wood.bellow");
+        WOODCHIME = registerSound("blocks.wood.chime");
+        METALCHIME = registerSound("blocks.metal.chime");
     }
 
     public static SoundEvent registerSound(String soundName) {

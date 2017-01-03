@@ -11,9 +11,14 @@
 package betterwithmods.base.modules;
 
 import betterwithmods.base.BWMod;
-import betterwithmods.modules.automation.BWAutomation;
-import betterwithmods.modules.environment.BWEnvironment;
-import betterwithmods.modules.hardcore.BWHardcore;
+import betterwithmods.modules.advancedmechpower.AdvancedMechPower;
+import betterwithmods.modules.aesthetic.Aesthetics;
+import betterwithmods.modules.core.Core;
+import betterwithmods.modules.hardcore.Hardcore;
+import betterwithmods.modules.integration.Integration;
+import betterwithmods.modules.recipes.Recipes;
+import betterwithmods.modules.tweaks.Tweaks;
+import betterwithmods.modules.utilities.Utilities;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -37,9 +42,17 @@ public final class ModuleLoader {
 
     static {
         moduleClasses = new ArrayList();
-        registerModule(BWHardcore.class);
-        registerModule(BWAutomation.class);
-        registerModule(BWEnvironment.class);
+
+        registerModule(Core.class);
+        registerModule(Hardcore.class);
+        registerModule(Tweaks.class);
+        registerModule(Recipes.class);
+        registerModule(Integration.class);
+        registerModule(AdvancedMechPower.class);
+        registerModule(Aesthetics.class);
+        registerModule(Tweaks.class);
+        registerModule(Utilities.class);
+
     }
 
     private static List<Class<? extends Module>> moduleClasses;

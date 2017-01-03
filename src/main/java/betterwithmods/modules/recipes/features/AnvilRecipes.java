@@ -1,14 +1,9 @@
 package betterwithmods.modules.recipes.features;
 
-import betterwithmods.base.registry.BWMBlocks;
-import betterwithmods.base.registry.BWMItems;
-import betterwithmods.base.blocks.mini.BlockMini;
 import betterwithmods.api.crafting.steelanvil.CraftingManagerSteelAnvil;
 import betterwithmods.api.crafting.steelanvil.ShapedSteelAnvilRecipe;
-import betterwithmods.base.items.ItemMaterial;
 import betterwithmods.base.modules.Feature;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -22,7 +17,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 public class AnvilRecipes extends Feature {
     @Override
     public void init(FMLInitializationEvent event) {
-        addShapedSteelAnvilRecipe(BWMBlocks.BLOCK_DISPENSER, "MMMM", "MUUM", "STTS", "SRRS", 'M', Blocks.MOSSY_COBBLESTONE, 'U', new ItemStack(BWMBlocks.URN, 1, 8), 'S', "stone", 'R', "dustRedstone", 'T', Blocks.REDSTONE_TORCH);
+
+        //TODO
+        /*addShapedSteelAnvilRecipe(BWMBlocks.BLOCK_DISPENSER, "MMMM", "MUUM", "STTS", "SRRS", 'M', Blocks.MOSSY_COBBLESTONE, 'U', new ItemStack(BWMBlocks.URN, 1, 8), 'S', "stone", 'R', "dustRedstone", 'T', Blocks.REDSTONE_TORCH);
         addShapedSteelAnvilRecipe(BWMBlocks.BUDDY_BLOCK, "SSLS", "LTTS", "STTL", "SLSS", 'S', "stone", 'T', Blocks.REDSTONE_TORCH, 'L', ItemMaterial.getMaterial("polished_lapis"));
         addShapedSteelAnvilRecipe(BWMBlocks.DETECTOR, "CCCC", "LTTL", "SRRS", "SRRS", 'C', "cobblestone", 'L', ItemMaterial.getMaterial("polished_lapis"), 'T', Blocks.REDSTONE_TORCH, 'S', "stone", 'R', "dustRedstone");
         addShapedSteelAnvilRecipe(BWMItems.STEEL_HELMET, "SSSS", "S  S", "S  S", " PP ", 'P', ItemMaterial.getMaterial("armor_plate"), 'S', ItemMaterial.getMaterial("ingot_steel"));
@@ -47,7 +44,7 @@ public class AnvilRecipes extends Feature {
             addShapedSteelAnvilRecipe(new ItemStack(BWMBlocks.STONE_SIDING, 8, type.getMetadata()), "XXXX", 'X', type.getBlock());
             addShapedSteelAnvilRecipe(new ItemStack(BWMBlocks.STONE_MOULDING, 8, type.getMetadata()), "XXXX", 'X', new ItemStack(BWMBlocks.STONE_SIDING, 1, type.getMetadata()));
             addShapedSteelAnvilRecipe(new ItemStack(BWMBlocks.STONE_CORNER, 8, type.getMetadata()), "XXXX", 'X', new ItemStack(BWMBlocks.STONE_MOULDING, 1, type.getMetadata()));
-        }
+        }*/
     }
 
 

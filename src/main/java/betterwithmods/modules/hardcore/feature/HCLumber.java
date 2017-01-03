@@ -1,12 +1,12 @@
 package betterwithmods.modules.hardcore.feature;
 
-import betterwithmods.base.registry.BWMBlocks;
-import betterwithmods.base.registry.BWMItems;
 import betterwithmods.api.block.IDebarkable;
 import betterwithmods.api.crafting.blockmeta.SawInteraction;
-import betterwithmods.base.items.tools.ItemKnife;
 import betterwithmods.base.modules.Feature;
 import betterwithmods.base.util.InvUtils;
+import betterwithmods.modules.aesthetic.features.Debarking;
+import betterwithmods.modules.core.features.Carpentry;
+import betterwithmods.modules.utilities.items.tools.ItemKnife;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
@@ -32,7 +32,6 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 
-import static betterwithmods.base.registry.BWMItems.BARK;
 
 /**
  * Purpose:
@@ -56,14 +55,14 @@ public class HCLumber extends Feature {
             if (playerStack != null && (playerStack.getItem().getHarvestLevel(playerStack, "axe", player, world.getBlockState(pos)) >= 0) || (playerStack.getItem().getToolClasses(playerStack).contains("axe") && (!playerStack.getItem().getToolClasses(playerStack).contains("pickaxe") || !playerStack.getItem().getToolClasses(playerStack).contains("shovel")))) {
                 if (block == Blocks.LOG) {
                     IBlockState state = world.getBlockState(pos);
-                    IBlockState dbl = BWMBlocks.DEBARKED_OLD.getDefaultState().withProperty(BlockLog.LOG_AXIS, state.getValue(BlockLog.LOG_AXIS)).withProperty(BlockOldLog.VARIANT, state.getValue(BlockOldLog.VARIANT));
+                    IBlockState dbl = Debarking.DEBARKED_OLD.getDefaultState().withProperty(BlockLog.LOG_AXIS, state.getValue(BlockLog.LOG_AXIS)).withProperty(BlockOldLog.VARIANT, state.getValue(BlockOldLog.VARIANT));
                     InvUtils.ejectStackWithOffset(world, playerPos, ((IDebarkable) dbl.getBlock()).getBark(dbl));
                     world.setBlockState(pos, dbl);
                     world.playSound(null, pos, SoundEvents.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD, SoundCategory.BLOCKS, 0.5F, 2.5F);
                     playerStack.damageItem(1, player);
                 } else if (block == Blocks.LOG2) {
                     IBlockState state = world.getBlockState(pos);
-                    IBlockState dbl = BWMBlocks.DEBARKED_NEW.getDefaultState().withProperty(BlockLog.LOG_AXIS, state.getValue(BlockLog.LOG_AXIS)).withProperty(BlockNewLog.VARIANT, state.getValue(BlockNewLog.VARIANT));
+                    IBlockState dbl = Debarking.DEBARKED_NEW.getDefaultState().withProperty(BlockLog.LOG_AXIS, state.getValue(BlockLog.LOG_AXIS)).withProperty(BlockNewLog.VARIANT, state.getValue(BlockNewLog.VARIANT));
                     InvUtils.ejectStackWithOffset(world, playerPos, ((IDebarkable) dbl.getBlock()).getBark(dbl));
                     world.setBlockState(pos, dbl);
                     world.playSound(null, pos, SoundEvents.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD, SoundCategory.BLOCKS, 0.5F, 2.5F);
@@ -71,8 +70,8 @@ public class HCLumber extends Feature {
                 } else {
                     IBlockState state = world.getBlockState(pos);
                     if (SawInteraction.INSTANCE.contains(block, block.getMetaFromState(state)) && InvUtils.listContains(new ItemStack(block, 1, block.damageDropped(state)), OreDictionary.getOres("logWood"))) {
-                        InvUtils.ejectStackWithOffset(world, playerPos, new ItemStack(BARK, 1, 0));
-                        IBlockState dbl = BWMBlocks.DEBARKED_OLD.getDefaultState().withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Y).withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK);
+                        InvUtils.ejectStackWithOffset(world, playerPos, new ItemStack(Carpentry.BARK, 1, 0));
+                        IBlockState dbl = Debarking.DEBARKED_OLD.getDefaultState().withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Y).withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK);
                         world.setBlockState(pos, dbl);
                         world.playSound(null, pos, SoundEvents.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD, SoundCategory.BLOCKS, 0.5F, 2.5F);
                         playerStack.damageItem(1, player);
@@ -125,7 +124,7 @@ public class HCLumber extends Feature {
 
                                     ItemStack bark = new ItemStack(outputs.get(1).getItem(), barkStack, outputs.get(1).getItemDamage());
                                     int sawdustStack = fort ? 1 + world.rand.nextInt(fortune) : 1;
-                                    ItemStack sawdust = new ItemStack(BWMItems.MATERIAL, sawdustStack, 22);
+                                    ItemStack sawdust = new ItemStack(Carpentry.SAW_DUST, sawdustStack);
                                     newOutputs.add(planks);
                                     newOutputs.add(bark);
                                     newOutputs.add(sawdust);

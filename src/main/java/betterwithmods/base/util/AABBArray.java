@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.function.Function;
 
 /**
- * Hack class to allow multiple bounding boxes per entity.
+ * Hack class to allow multiple bounding boxes per entities.
  *
  * @author mrebhan
  */

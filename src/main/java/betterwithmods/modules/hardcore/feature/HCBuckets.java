@@ -1,7 +1,7 @@
 package betterwithmods.modules.hardcore.feature;
 
 import betterwithmods.base.modules.Feature;
-import betterwithmods.base.util.DispenserBehaviorFiniteWater;
+import betterwithmods.modules.core.blocks.behavior.DispenserBehaviorFiniteWater;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;

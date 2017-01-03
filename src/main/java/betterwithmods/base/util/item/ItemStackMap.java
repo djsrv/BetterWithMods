@@ -84,7 +84,7 @@ public class ItemStackMap<T> {
             ItemStack stack = new ItemStack(block, meta);
             return put(stack, value);
         } catch (NullPointerException e) {
-            CrashReport report = new CrashReport("The block " + block.getRegistryName() + " cannot be converted into an item.", e);
+            CrashReport report = new CrashReport("The blocks " + block.getRegistryName() + " cannot be converted into an item.", e);
             throw new ReportedException(report);
         }
     }
