@@ -68,6 +68,7 @@ public class BWConfig {
     public static boolean inferiorDrops;
     public static boolean kidFriendly;
     public static float crankExhaustion;
+    public static boolean hardcoreReclaiming;
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -138,6 +139,7 @@ public class BWConfig {
         inferiorDrops = config.get(HARDCORE, "Inferior Dirt Drops", true, "Dirt, sand, and gravel will drop piles if not harvested with a shovel").getBoolean();
         kidFriendly = config.get("cosmetic", "Family Show", false, "Enable if your pack is kid-friendly.").getBoolean();
         crankExhaustion = config.getFloat("Crank Exhaustion", MODPACK_TWEAKS, 2.0F, 0.0F, 2.0F, "How much saturation turning the crank eats. Set to 0.0 to disable.");
+        hardcoreReclaiming = config.getBoolean("Hardcore Reclaiming", HARDCORE, false, "The number of nuggets reclaimed by a crucible depends on the item's durability.");
         if(config.hasChanged())
             config.save();
     }

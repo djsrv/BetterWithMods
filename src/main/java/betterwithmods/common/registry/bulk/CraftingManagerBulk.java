@@ -4,6 +4,7 @@ import betterwithmods.api.craft.IBulkRecipe;
 import betterwithmods.common.registry.OreStack;
 import betterwithmods.util.InvUtils;
 import com.google.common.collect.Lists;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
@@ -57,6 +58,11 @@ public abstract class CraftingManagerBulk {
 
     public void addRecipe(ItemStack output, ItemStack secondary, ItemStack[] inputs) {
         BulkRecipe recipe = createRecipe(output, secondary, inputs);
+        this.recipes.add(recipe);
+    }
+
+    public void addReclaimRecipe(Item inputItem, String oreSuffix, int ingotCount) {
+        ReclaimRecipe recipe = createReclaimRecipe(inputItem, oreSuffix, ingotCount);
         this.recipes.add(recipe);
     }
 
@@ -178,14 +184,14 @@ public abstract class CraftingManagerBulk {
         IBulkRecipe recipe = getMostValidRecipe(inv);
         if (recipe != null) {
             ItemStack[] ret = new ItemStack[1];
-            if (recipe.getSecondary() != null) {
+            if (recipe.getActualSecondary(inv) != null) {
                 ret = new ItemStack[2];
-                ret[1] = recipe.getSecondary();
+                ret[1] = recipe.getActualSecondary(inv);
             }
-            if (recipe.getOutput() == null) {
+            if (recipe.getActualOutput(inv) == null) {
                 return null;
             }
-            ret[0] = recipe.getOutput();
+            ret[0] = recipe.getActualOutput(inv);
             recipe.consumeInvIngredients(inv);
             return ret;
         }
@@ -194,6 +200,10 @@ public abstract class CraftingManagerBulk {
 
     private BulkRecipe createRecipe(ItemStack output, ItemStack secondary, Object[] inputs) {
         return new BulkRecipe(craftType, output, secondary, inputs);
+    }
+
+    private ReclaimRecipe createReclaimRecipe(Item inputItem, String oreSuffix, int ingotCount) {
+        return new ReclaimRecipe(craftType, inputItem, oreSuffix, ingotCount);
     }
 
     private int getMatchingRecipeIndex(BulkRecipe recipe) {
@@ -215,7 +225,11 @@ public abstract class CraftingManagerBulk {
         if (!recipes.isEmpty()) {
             this.recipes = new ArrayList<>();
             for (IBulkRecipe r : recipes) {
-                this.recipes.add(createRecipe(r.getOutput(), r.getSecondary(), r.getInput().toArray()));
+                if (r instanceof BulkRecipe) {
+                    this.recipes.add(createRecipe(r.getOutput(), r.getSecondary(), r.getInput().toArray()));
+                } else {
+                    this.recipes.add(r);
+                }
             }
         }
     }

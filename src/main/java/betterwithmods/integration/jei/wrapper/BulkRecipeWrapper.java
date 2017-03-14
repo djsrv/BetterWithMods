@@ -1,6 +1,6 @@
 package betterwithmods.integration.jei.wrapper;
 
-import betterwithmods.common.registry.bulk.BulkRecipe;
+import betterwithmods.api.craft.IBulkRecipe;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IStackHelper;
@@ -14,7 +14,7 @@ public class BulkRecipeWrapper extends BWMRecipeWrapper {
 
     private final IJeiHelpers helpers;
 
-    public BulkRecipeWrapper(IJeiHelpers helpers, @Nonnull BulkRecipe recipe) {
+    public BulkRecipeWrapper(IJeiHelpers helpers, @Nonnull IBulkRecipe recipe) {
         super(recipe);
         this.helpers = helpers;
     }

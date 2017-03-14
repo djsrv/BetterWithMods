@@ -474,33 +474,32 @@ public class BWCrafting {
         addOreStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL), new ItemStack(BWMBlocks.URN, 1, 0), new Object[]{"dustCoal", new ItemStack(BWMBlocks.URN, 1, 8), "ingotIron", BWConfig.steelRequiresEnd ? ItemMaterial.getMaterial(EnumMaterial.SOUL_FLUX) : null});
         addOreStokedCrucibleRecipe(new ItemStack(Items.IRON_INGOT), new Object[]{new OreStack("nuggetIron", 9)});
         if (BWConfig.reclaimCount > 0) {
-            addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 2), new ItemStack[]{new ItemStack(BWMItems.STEEL_HOE, 1, OreDictionary.WILDCARD_VALUE)});
-            //addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 2), new ItemStack[]{new ItemStack(BWMItems.STEEL_SWORD, 1, OreDictionary.WILDCARD_VALUE)});
-            addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 3), new ItemStack[]{new ItemStack(BWMItems.STEEL_SWORD, 1, OreDictionary.WILDCARD_VALUE)});
-            addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 3), new ItemStack[]{new ItemStack(BWMItems.STEEL_PICKAXE, 1, OreDictionary.WILDCARD_VALUE)});
-            addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 3), new ItemStack[]{new ItemStack(BWMItems.STEEL_AXE, 1, OreDictionary.WILDCARD_VALUE)});
-            addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL), new ItemStack[]{new ItemStack(BWMItems.STEEL_SHOVEL, 1, OreDictionary.WILDCARD_VALUE)});
-            addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 4), new ItemStack[]{new ItemStack(BWMItems.STEEL_MATTOCK, 1, OreDictionary.WILDCARD_VALUE)});
-            addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 5), new ItemStack[]{new ItemStack(BWMItems.STEEL_BATTLEAXE, 1, OreDictionary.WILDCARD_VALUE)});
-            addReclaimRecipe(new ItemStack(Items.IRON_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE), "Iron", 8);
-            addReclaimRecipe(new ItemStack(Items.IRON_AXE, 1, OreDictionary.WILDCARD_VALUE), "Iron", 3);
-            addReclaimRecipe(new ItemStack(Items.IRON_BOOTS, 1, OreDictionary.WILDCARD_VALUE), "Iron", 4);
-            addReclaimRecipe(new ItemStack(Items.IRON_HELMET, 1, OreDictionary.WILDCARD_VALUE), "Iron", 5);
-            addReclaimRecipe(new ItemStack(Items.IRON_LEGGINGS, 1, OreDictionary.WILDCARD_VALUE), "Iron", 7);
-            addReclaimRecipe(new ItemStack(Items.IRON_HOE, 1, OreDictionary.WILDCARD_VALUE), "Iron", 2);
-            addReclaimRecipe(new ItemStack(Items.IRON_PICKAXE, 1, OreDictionary.WILDCARD_VALUE), "Iron", 3);
-            addReclaimRecipe(new ItemStack(Items.IRON_SHOVEL, 1, OreDictionary.WILDCARD_VALUE), "Iron", 1);
-            addReclaimRecipe(new ItemStack(Items.IRON_SWORD, 1, OreDictionary.WILDCARD_VALUE), "Iron", 2);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE), "Gold", 8);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_AXE, 1, OreDictionary.WILDCARD_VALUE), "Gold", 3);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_BOOTS, 1, OreDictionary.WILDCARD_VALUE), "Gold", 4);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_HELMET, 1, OreDictionary.WILDCARD_VALUE), "Gold", 5);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_LEGGINGS, 1, OreDictionary.WILDCARD_VALUE), "Gold", 7);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_HOE, 1, OreDictionary.WILDCARD_VALUE), "Gold", 2);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_PICKAXE, 1, OreDictionary.WILDCARD_VALUE), "Gold", 3);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_SHOVEL, 1, OreDictionary.WILDCARD_VALUE), "Gold", 1);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_SWORD, 1, OreDictionary.WILDCARD_VALUE), "Gold", 2);
-            addReclaimRecipe(new ItemStack(Items.SHEARS, 1, OreDictionary.WILDCARD_VALUE), "Iron", 2);
+            addIngotReclaimRecipe(BWMItems.STEEL_HOE, "SoulforgedSteel", 2);
+            addIngotReclaimRecipe(BWMItems.STEEL_SWORD, "SoulforgedSteel", 3);
+            addIngotReclaimRecipe(BWMItems.STEEL_PICKAXE, "SoulforgedSteel", 3);
+            addIngotReclaimRecipe(BWMItems.STEEL_AXE, "SoulforgedSteel", 3);
+            addIngotReclaimRecipe(BWMItems.STEEL_SHOVEL, "SoulforgedSteel", 3);
+            addIngotReclaimRecipe(BWMItems.STEEL_MATTOCK, "SoulforgedSteel", 4);
+            addIngotReclaimRecipe(BWMItems.STEEL_BATTLEAXE, "SoulforgedSteel", 5);
+            addIngotReclaimRecipe(Items.IRON_CHESTPLATE, "Iron", 8);
+            addIngotReclaimRecipe(Items.IRON_AXE, "Iron", 3);
+            addIngotReclaimRecipe(Items.IRON_BOOTS, "Iron", 4);
+            addIngotReclaimRecipe(Items.IRON_HELMET, "Iron", 5);
+            addIngotReclaimRecipe(Items.IRON_LEGGINGS, "Iron", 7);
+            addIngotReclaimRecipe(Items.IRON_HOE, "Iron", 2);
+            addIngotReclaimRecipe(Items.IRON_PICKAXE, "Iron", 3);
+            addIngotReclaimRecipe(Items.IRON_SHOVEL, "Iron", 1);
+            addIngotReclaimRecipe(Items.IRON_SWORD, "Iron", 2);
+            addIngotReclaimRecipe(Items.GOLDEN_CHESTPLATE, "Gold", 8);
+            addIngotReclaimRecipe(Items.GOLDEN_AXE, "Gold", 3);
+            addIngotReclaimRecipe(Items.GOLDEN_BOOTS, "Gold", 4);
+            addIngotReclaimRecipe(Items.GOLDEN_HELMET, "Gold", 5);
+            addIngotReclaimRecipe(Items.GOLDEN_LEGGINGS, "Gold", 7);
+            addIngotReclaimRecipe(Items.GOLDEN_HOE, "Gold", 2);
+            addIngotReclaimRecipe(Items.GOLDEN_PICKAXE, "Gold", 3);
+            addIngotReclaimRecipe(Items.GOLDEN_SHOVEL, "Gold", 1);
+            addIngotReclaimRecipe(Items.GOLDEN_SWORD, "Gold", 2);
+            addIngotReclaimRecipe(Items.SHEARS, "Iron", 2);
         }
         addStokedCrucibleRecipe(new ItemStack(Items.IRON_INGOT, 2, 0), new ItemStack[]{new ItemStack(Items.IRON_DOOR)});
         addStokedCrucibleRecipe(new ItemStack(Items.IRON_INGOT, 8, 0), new ItemStack[]{new ItemStack(Items.IRON_HORSE_ARMOR, 1, OreDictionary.WILDCARD_VALUE)});
@@ -526,20 +525,15 @@ public class BWCrafting {
         addCrucibleRecipe(new ItemStack(Blocks.SPONGE, 1, 0), new ItemStack[]{new ItemStack(Blocks.SPONGE, 1, 1)});
         addCrucibleRecipe(new ItemStack(Blocks.SPONGE, 1, 0), new ItemStack(Items.WATER_BUCKET), new ItemStack[]{new ItemStack(Blocks.SPONGE, 1, 1), new ItemStack(Items.BUCKET)});
         if (BWConfig.reclaimCount > 0) {
-            //addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 5), new ItemStack[]{new ItemStack(BWMItems.STEEL_HELMET, 1, OreDictionary.WILDCARD_VALUE)});
-            //addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 8), new ItemStack[]{new ItemStack(BWMItems.STEEL_CHEST, 1, OreDictionary.WILDCARD_VALUE)});
-            //addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 7), new ItemStack[]{new ItemStack(BWMItems.STEEL_PANTS, 1, OreDictionary.WILDCARD_VALUE)});
-            //addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 4), new ItemStack[]{new ItemStack(BWMItems.STEEL_BOOTS, 1, OreDictionary.WILDCARD_VALUE)});
-            addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 10), new ItemStack[]{new ItemStack(BWMItems.STEEL_HELMET, 1, OreDictionary.WILDCARD_VALUE)});
-            addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 14), new ItemStack[]{new ItemStack(BWMItems.STEEL_CHEST, 1, OreDictionary.WILDCARD_VALUE)});
-            addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 12), new ItemStack[]{new ItemStack(BWMItems.STEEL_PANTS, 1, OreDictionary.WILDCARD_VALUE)});
-            addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 8), new ItemStack[]{new ItemStack(BWMItems.STEEL_BOOTS, 1, OreDictionary.WILDCARD_VALUE)});
-            //addStokedCrucibleRecipe(new ItemStack(Items.field_191525_da, 5), new ItemStack[]{ItemMaterial.getMaterial(EnumMaterial.CHAIN_MAIL)});
+            addIngotReclaimRecipe(BWMItems.STEEL_HELMET, "SoulforgedSteel", 10);
+            addIngotReclaimRecipe(BWMItems.STEEL_CHEST, "SoulforgedSteel", 14);
+            addIngotReclaimRecipe(BWMItems.STEEL_PANTS, "SoulforgedSteel", 12);
+            addIngotReclaimRecipe(BWMItems.STEEL_BOOTS, "SoulforgedSteel", 8);
             addStokedCrucibleRecipe(new ItemStack(Items.field_191525_da, 4), new ItemStack[]{ItemMaterial.getMaterial(EnumMaterial.CHAIN_MAIL)});
-            addStokedCrucibleRecipe(new ItemStack(Items.field_191525_da, 25), new ItemStack[]{new ItemStack(Items.CHAINMAIL_HELMET, 1, OreDictionary.WILDCARD_VALUE)});
-            addStokedCrucibleRecipe(new ItemStack(Items.field_191525_da, 40), new ItemStack[]{new ItemStack(Items.CHAINMAIL_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE)});
-            addStokedCrucibleRecipe(new ItemStack(Items.field_191525_da, 35), new ItemStack[]{new ItemStack(Items.CHAINMAIL_LEGGINGS, 1, OreDictionary.WILDCARD_VALUE)});
-            addStokedCrucibleRecipe(new ItemStack(Items.field_191525_da, 20), new ItemStack[]{new ItemStack(Items.CHAINMAIL_BOOTS, 1, OreDictionary.WILDCARD_VALUE)});
+            addNuggetReclaimRecipe(Items.CHAINMAIL_HELMET, "Iron", 20);
+            addNuggetReclaimRecipe(Items.CHAINMAIL_CHESTPLATE, "Iron", 32);
+            addNuggetReclaimRecipe(Items.CHAINMAIL_LEGGINGS, "Iron", 28);
+            addNuggetReclaimRecipe(Items.CHAINMAIL_BOOTS, "Iron", 16);
             addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 7), new ItemStack[]{new ItemStack(BWMBlocks.STEEL_ANVIL)});
             addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL), new ItemStack[]{ItemMaterial.getMaterial(EnumMaterial.ARMOR_PLATE)});
             addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.INGOT_STEEL, 16), new ItemStack[]{new ItemStack(BWMBlocks.AESTHETIC, 1, 2)});
@@ -568,15 +562,15 @@ public class BWCrafting {
             GameRegistry.addRecipe(new ShapedOreRecipe(Items.DIAMOND_BOOTS, "D D", "D D", 'D', ItemMaterial.getMaterial(EnumMaterial.DIAMOND_INGOT)));
 
             if (BWConfig.reclaimCount > 0) {
-                addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.DIAMOND_INGOT, 3), new ItemStack[]{new ItemStack(Items.DIAMOND_AXE, 1, OreDictionary.WILDCARD_VALUE)});
-                addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.DIAMOND_INGOT, 2), new ItemStack[]{new ItemStack(Items.DIAMOND_HOE, 1, OreDictionary.WILDCARD_VALUE)});
-                addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.DIAMOND_INGOT, 3), new ItemStack[]{new ItemStack(Items.DIAMOND_PICKAXE, 1, OreDictionary.WILDCARD_VALUE)});
-                addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.DIAMOND_INGOT, 1), new ItemStack[]{new ItemStack(Items.DIAMOND_SHOVEL, 1, OreDictionary.WILDCARD_VALUE)});
-                addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.DIAMOND_INGOT, 2), new ItemStack[]{new ItemStack(Items.DIAMOND_SWORD, 1, OreDictionary.WILDCARD_VALUE)});
-                addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.DIAMOND_INGOT, 5), new ItemStack[]{new ItemStack(Items.DIAMOND_HELMET, 1, OreDictionary.WILDCARD_VALUE)});
-                addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.DIAMOND_INGOT, 8), new ItemStack[]{new ItemStack(Items.DIAMOND_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE)});
-                addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.DIAMOND_INGOT, 7), new ItemStack[]{new ItemStack(Items.DIAMOND_LEGGINGS, 1, OreDictionary.WILDCARD_VALUE)});
-                addStokedCrucibleRecipe(ItemMaterial.getMaterial(EnumMaterial.DIAMOND_INGOT, 4), new ItemStack[]{new ItemStack(Items.DIAMOND_BOOTS, 1, OreDictionary.WILDCARD_VALUE)});
+                addIngotReclaimRecipe(Items.DIAMOND_AXE, "Diamond", 3, false);
+                addIngotReclaimRecipe(Items.DIAMOND_HOE, "Diamond", 2, false);
+                addIngotReclaimRecipe(Items.DIAMOND_PICKAXE, "Diamond", 3, false);
+                addIngotReclaimRecipe(Items.DIAMOND_SHOVEL, "Diamond", 1, false);
+                addIngotReclaimRecipe(Items.DIAMOND_SWORD, "Diamond", 2, false);
+                addIngotReclaimRecipe(Items.DIAMOND_HELMET, "Diamond", 5, false);
+                addIngotReclaimRecipe(Items.DIAMOND_CHESTPLATE, "Diamond", 8, false);
+                addIngotReclaimRecipe(Items.DIAMOND_LEGGINGS, "Diamond", 7, false);
+                addIngotReclaimRecipe(Items.DIAMOND_BOOTS, "Diamond", 4, false);
             }
         }
     }
@@ -741,23 +735,16 @@ public class BWCrafting {
         CraftingManagerCrucibleStoked.getInstance().addOreRecipe(output, inputs);
     }
 
-    public static void addReclaimRecipe(ItemStack input, String oreSuffix, int ingotCount) {
-        int totalNuggets = ingotCount * BWConfig.reclaimCount;
-        int ingots = totalNuggets / 9;
-        int nuggets = totalNuggets % 9;
-        ItemStack ingotStack = null;
-        ItemStack nuggetStack = null;
-        if (ingots > 0 && !OreDictionary.getOres("ingot" + oreSuffix).isEmpty())
-            ingotStack = OreDictionary.getOres("ingot" + oreSuffix).get(0);
-        if (nuggets > 0 && !OreDictionary.getOres("nugget" + oreSuffix).isEmpty())
-            nuggetStack = OreDictionary.getOres("nugget" + oreSuffix).get(0);
-        if (ingotStack == null) {
-            if (nuggetStack != null) {
-                CraftingManagerCrucibleStoked.getInstance().addRecipe(new ItemStack(nuggetStack.getItem(), totalNuggets > nuggets ? totalNuggets : nuggets, nuggetStack.getMetadata()), input.copy());
-            }
-        } else {
-            CraftingManagerCrucibleStoked.getInstance().addRecipe(new ItemStack(ingotStack.getItem(), ingots, ingotStack.getMetadata()), nuggetStack != null ? new ItemStack(nuggetStack.getItem(), nuggets, nuggetStack.getMetadata()) : null, input.copy());
-        }
+    public static void addIngotReclaimRecipe(Item inputItem, String oreSuffix, int ingotCount) {
+        addIngotReclaimRecipe(inputItem, oreSuffix, ingotCount, true);
+    }
+
+    public static void addIngotReclaimRecipe(Item inputItem, String oreSuffix, int ingotCount, boolean useNuggets) {
+        CraftingManagerCrucibleStoked.getInstance().addReclaimRecipe(inputItem, oreSuffix, ingotCount * (useNuggets ? BWConfig.reclaimCount : 9));
+    }
+
+    public static void addNuggetReclaimRecipe(Item inputItem, String oreSuffix, int nuggetCount) {
+        CraftingManagerCrucibleStoked.getInstance().addReclaimRecipe(inputItem, oreSuffix, nuggetCount);
     }
 
     public static void addOreStokedCrucibleRecipe(ItemStack output, ItemStack secondary, Object[] inputs) {

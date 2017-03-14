@@ -1,6 +1,6 @@
 package betterwithmods.integration.jei.handler;
 
-import betterwithmods.common.registry.bulk.BulkRecipe;
+import betterwithmods.api.craft.IBulkRecipe;
 import betterwithmods.integration.jei.BWMJEIPlugin;
 import betterwithmods.integration.jei.wrapper.*;
 import mezz.jei.api.IJeiHelpers;
@@ -11,17 +11,17 @@ import net.minecraft.item.ItemStack;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class BulkRecipeHandler implements IRecipeHandler<BulkRecipe> {
+public class BulkRecipeHandler implements IRecipeHandler<IBulkRecipe> {
 
     @Nonnull
     @Override
-    public Class<BulkRecipe> getRecipeClass() {
-        return BulkRecipe.class;
+    public Class<IBulkRecipe> getRecipeClass() {
+        return IBulkRecipe.class;
     }
 
     @Nonnull
     @Override
-    public IRecipeWrapper getRecipeWrapper(@Nonnull BulkRecipe recipe) {
+    public IRecipeWrapper getRecipeWrapper(@Nonnull IBulkRecipe recipe) {
         IJeiHelpers helper = BWMJEIPlugin.helper;
         switch(recipe.getType()) {
             case "mill": return new MillRecipeWrapper(helper, recipe);
@@ -34,7 +34,7 @@ public class BulkRecipeHandler implements IRecipeHandler<BulkRecipe> {
 
     @Nonnull
     @Override
-    public String getRecipeCategoryUid(@Nonnull BulkRecipe recipe) {
+    public String getRecipeCategoryUid(@Nonnull IBulkRecipe recipe) {
         String type = recipe.getType();
         if (type.contains("Stoked")) {
             type = type.substring(0, type.lastIndexOf("S")) + ".stoked";
@@ -43,7 +43,7 @@ public class BulkRecipeHandler implements IRecipeHandler<BulkRecipe> {
     }
 
     @Override
-    public boolean isRecipeValid(@Nonnull BulkRecipe recipe) {
+    public boolean isRecipeValid(@Nonnull IBulkRecipe recipe) {
         if (recipe.getOutput() == null || recipe.getOutput() == ItemStack.EMPTY)
             return false;
         int inputCount = 0;
