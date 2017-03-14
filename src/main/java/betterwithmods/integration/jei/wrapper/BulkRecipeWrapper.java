@@ -22,7 +22,7 @@ public class BulkRecipeWrapper extends BWMRecipeWrapper {
     @Override
     public void getIngredients(IIngredients ingredients) {
         IStackHelper stackHelper = helpers.getStackHelper();
-        List<List<ItemStack>> inputs = stackHelper.expandRecipeItemStackInputs(recipe.getInput());
+        List<List<ItemStack>> inputs = stackHelper.expandRecipeItemStackInputs(recipe.getJEIInput());
         ingredients.setInputLists(ItemStack.class, inputs);
         List<ItemStack> outputs = new ArrayList<>();
         outputs.add(getRecipe().getOutput().copy());

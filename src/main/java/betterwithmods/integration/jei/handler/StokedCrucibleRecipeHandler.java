@@ -1,6 +1,6 @@
 package betterwithmods.integration.jei.handler;
 
-import betterwithmods.common.registry.bulk.BulkRecipe;
+import betterwithmods.api.craft.IBulkRecipe;
 import betterwithmods.integration.jei.wrapper.StokedCrucibleRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
@@ -30,11 +30,11 @@ public class StokedCrucibleRecipeHandler implements IRecipeHandler<StokedCrucibl
 
     @Override
     public boolean isRecipeValid(@Nonnull StokedCrucibleRecipeWrapper wrapper) {
-        BulkRecipe recipe = wrapper.getRecipe();
+        IBulkRecipe recipe = wrapper.getRecipe();
         if (recipe.getOutput() == null)
             return false;
         int inputCount = 0;
-        for (Object input : recipe.getInput()) {
+        for (Object input : recipe.getJEIInput()) {
             if (input instanceof List) {
                 if (((List<?>) input).isEmpty())
                     return false;

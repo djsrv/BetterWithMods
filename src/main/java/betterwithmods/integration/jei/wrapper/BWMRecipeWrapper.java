@@ -1,20 +1,20 @@
 package betterwithmods.integration.jei.wrapper;
 
-import betterwithmods.common.registry.bulk.BulkRecipe;
+import betterwithmods.api.craft.IBulkRecipe;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 
 import javax.annotation.Nonnull;
 
 public abstract class BWMRecipeWrapper extends BlankRecipeWrapper {
     @Nonnull
-    protected final BulkRecipe recipe;
+    protected final IBulkRecipe recipe;
 
-    public BWMRecipeWrapper(@Nonnull BulkRecipe recipe) {
+    public BWMRecipeWrapper(@Nonnull IBulkRecipe recipe) {
         this.recipe = recipe;
     }
 
     @Nonnull
-    public BulkRecipe getRecipe() {
+    public IBulkRecipe getRecipe() {
         return recipe;
     }
 }

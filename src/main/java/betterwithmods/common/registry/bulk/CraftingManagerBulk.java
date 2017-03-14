@@ -1,5 +1,6 @@
 package betterwithmods.common.registry.bulk;
 
+import betterwithmods.api.craft.IBulkRecipe;
 import betterwithmods.common.registry.OreStack;
 import betterwithmods.util.InvUtils;
 import com.google.common.collect.Lists;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public abstract class CraftingManagerBulk {
     private final String craftType;
-    private List<BulkRecipe> recipes;
+    private List<IBulkRecipe> recipes;
 
     public CraftingManagerBulk(String craftType) {
         this.craftType = craftType;
@@ -59,12 +60,12 @@ public abstract class CraftingManagerBulk {
         this.recipes.add(recipe);
     }
 
-    public List<BulkRecipe> removeRecipes(ItemStack output) {
-        List<BulkRecipe> removed = Lists.newArrayList();
-        Iterator<BulkRecipe> it = recipes.iterator();
+    public List<IBulkRecipe> removeRecipes(ItemStack output) {
+        List<IBulkRecipe> removed = Lists.newArrayList();
+        Iterator<IBulkRecipe> it = recipes.iterator();
         while(it.hasNext())
         {
-            BulkRecipe ir = it.next();
+            IBulkRecipe ir = it.next();
             if(ir.getOutput().isItemEqual(output))
             {
                 removed.add(ir);
@@ -99,26 +100,26 @@ public abstract class CraftingManagerBulk {
     }
 
     public ItemStack[] getCraftingResult(ItemStackHandler inv) {
-        BulkRecipe recipe = getMostValidRecipe(inv);
+        IBulkRecipe recipe = getMostValidRecipe(inv);
         if (recipe != null) {
             if (recipe.matches(inv)) {
                 ItemStack[] ret = new ItemStack[1];
-                if (recipe.getSecondary() != null) {
+                if (recipe.getActualSecondary(inv) != null) {
                     ret = new ItemStack[2];
-                    ret[1] = recipe.getSecondary();
+                    ret[1] = recipe.getActualSecondary(inv);
                 }
-                ret[0] = recipe.getOutput();
+                ret[0] = recipe.getActualOutput(inv);
                 return ret;
             }
         }
         return null;
     }
 
-    private BulkRecipe getMostValidRecipe(ItemStackHandler inv) {
-        HashMap<Integer, BulkRecipe> recipes = getValidRecipes(inv);
+    private IBulkRecipe getMostValidRecipe(ItemStackHandler inv) {
+        HashMap<Integer, IBulkRecipe> recipes = getValidRecipes(inv);
         if (!recipes.isEmpty()) {
             for (int i = 0; i < recipes.size(); i++) {
-                BulkRecipe recipe = recipes.get(i);
+                IBulkRecipe recipe = recipes.get(i);
                 if (recipe.matches(inv))
                     return recipe;
             }
@@ -126,16 +127,16 @@ public abstract class CraftingManagerBulk {
         return null;
     }
 
-    private HashMap<Integer, BulkRecipe> getValidRecipes(ItemStackHandler inv) {
-        HashMap<Integer, BulkRecipe> recipe = new HashMap<>();
+    private HashMap<Integer, IBulkRecipe> getValidRecipes(ItemStackHandler inv) {
+        HashMap<Integer, IBulkRecipe> recipe = new HashMap<>();
         int order = 0;
         for (int i = 0; i < inv.getSlots(); i++) {
-            BulkRecipe single = null;
+            IBulkRecipe single = null;
             if (inv.getStackInSlot(i) != ItemStack.EMPTY) {
                 ItemStack stack = inv.getStackInSlot(i).copy();
-                for (BulkRecipe r : this.recipes) {
-                    if (containsIngredient(r.getRecipeInput(), stack)) {
-                        if (r.getRecipeInput().size() > 1) {
+                for (IBulkRecipe r : this.recipes) {
+                    if (containsIngredient(r.getInput(), stack)) {
+                        if (r.getInput().size() > 1) {
                             recipe.put(order, r);
                             order++;
                         } else
@@ -167,14 +168,14 @@ public abstract class CraftingManagerBulk {
     }
 
     public List<Object> getValidCraftingIngredients(ItemStackHandler inv) {
-        BulkRecipe recipe = getMostValidRecipe(inv);
+        IBulkRecipe recipe = getMostValidRecipe(inv);
         if (recipe != null)
-            return recipe.getRecipeInput();
+            return recipe.getInput();
         return null;
     }
 
     public ItemStack[] craftItem(ItemStackHandler inv) {
-        BulkRecipe recipe = getMostValidRecipe(inv);
+        IBulkRecipe recipe = getMostValidRecipe(inv);
         if (recipe != null) {
             ItemStack[] ret = new ItemStack[1];
             if (recipe.getSecondary() != null) {
@@ -197,24 +198,24 @@ public abstract class CraftingManagerBulk {
 
     private int getMatchingRecipeIndex(BulkRecipe recipe) {
         for (int i = 0; i < this.recipes.size(); i++) {
-            BulkRecipe tempRecipe = this.recipes.get(i);
+            IBulkRecipe tempRecipe = this.recipes.get(i);
             if (tempRecipe.matches(recipe))
                 return i;
         }
         return -1;
     }
 
-    public List<BulkRecipe> getRecipes() {
+    public List<IBulkRecipe> getRecipes() {
         return this.recipes;
     }
 
     //Lazy way of ensuring the ore dictionary entries were properly implemented.
     public void refreshRecipes() {
-        List<BulkRecipe> recipes = getRecipes();
+        List<IBulkRecipe> recipes = getRecipes();
         if (!recipes.isEmpty()) {
             this.recipes = new ArrayList<>();
-            for (BulkRecipe r : recipes) {
-                this.recipes.add(createRecipe(r.getOutput(), r.getSecondary(), r.input.toArray()));
+            for (IBulkRecipe r : recipes) {
+                this.recipes.add(createRecipe(r.getOutput(), r.getSecondary(), r.getInput().toArray()));
             }
         }
     }

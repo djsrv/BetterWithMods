@@ -1,7 +1,7 @@
 package betterwithmods.integration.minetweaker;
 
 
-import betterwithmods.common.registry.bulk.BulkRecipe;
+import betterwithmods.api.craft.IBulkRecipe;
 import betterwithmods.common.registry.bulk.CraftingManagerBulk;
 import com.blamejared.mtlib.utils.BaseListRemoval;
 import net.minecraft.item.ItemStack;
@@ -12,12 +12,12 @@ import net.minecraft.item.ItemStack;
  * @author Tyler Marshall
  * @version 1/2/17
  */
-public class BulkRemove extends BaseListRemoval<BulkRecipe> {
+public class BulkRemove extends BaseListRemoval<IBulkRecipe> {
     protected BulkRemove(String name, CraftingManagerBulk recipes, ItemStack output) {
         super(name, recipes.getRecipes(), recipes.removeRecipes(output));
     }
     @Override
-    protected String getRecipeInfo(BulkRecipe recipe) {
+    protected String getRecipeInfo(IBulkRecipe recipe) {
         return recipe.getOutput().getDisplayName();
     }
 }

@@ -1,5 +1,6 @@
 package betterwithmods.common.registry.bulk;
 
+import betterwithmods.api.craft.IBulkRecipe;
 import betterwithmods.common.registry.OreStack;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
@@ -11,8 +12,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO Probably this should implement some recipe interface, at the very least.
-public class BulkRecipe {
+public class BulkRecipe implements IBulkRecipe {
     protected ItemStack output = ItemStack.EMPTY;
     protected ItemStack secondary = ItemStack.EMPTY;
     protected ArrayList<Object> input = new ArrayList<>();//Either ItemStack or OreStack
@@ -103,22 +103,37 @@ public class BulkRecipe {
         return list;
     }
 
+    @Override
     public ItemStack getOutput() {
         return this.output;
     }
 
+    @Override
     public ItemStack getSecondary() {
         return this.secondary;
     }
 
-    public ArrayList<List<ItemStack>> getInput() {
-        return this.jeiInput;
+    @Override
+    public ItemStack getActualOutput(ItemStackHandler inv) {
+        return this.output;
     }
 
-    public ArrayList<Object> getRecipeInput() {
+    @Override
+    public ItemStack getActualSecondary(ItemStackHandler inv) {
+        return this.secondary;
+    }
+
+    @Override
+    public ArrayList<Object> getInput() {
         return this.input;
     }
 
+    @Override
+    public ArrayList<List<ItemStack>> getJEIInput() {
+        return this.jeiInput;
+    }
+
+    @Override
     public boolean matches(ItemStackHandler inv) {
         ArrayList<Object> required = new ArrayList<>(input);
 
@@ -143,7 +158,8 @@ public class BulkRecipe {
         return false;
     }
 
-    public boolean matches(BulkRecipe recipe) {
+    @Override
+    public boolean matches(IBulkRecipe recipe) {
         if (this.getOutput() != ItemStack.EMPTY && recipe.getOutput() != ItemStack.EMPTY) {
             boolean match = this.stacksMatch(this.getOutput(), recipe.getOutput());
             if (match && (this.getSecondary() != ItemStack.EMPTY || recipe.getSecondary() != ItemStack.EMPTY)) {
@@ -156,6 +172,7 @@ public class BulkRecipe {
         return false;
     }
 
+    @Override
     public boolean consumeInvIngredients(ItemStackHandler inv) {
         boolean success = true;
         ArrayList<Object> required = input;
@@ -186,6 +203,7 @@ public class BulkRecipe {
         return first.getItem() == second.getItem() && first.getItemDamage() == second.getItemDamage() && first.getCount() == second.getCount();
     }
 
+    @Override
     public String getType() {
         return type;
     }

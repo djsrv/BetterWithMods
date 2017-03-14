@@ -47,7 +47,7 @@ public class BulkRecipeHandler implements IRecipeHandler<BulkRecipe> {
         if (recipe.getOutput() == null || recipe.getOutput() == ItemStack.EMPTY)
             return false;
         int inputCount = 0;
-        for (Object input : recipe.getInput()) {
+        for (Object input : recipe.getJEIInput()) {
             if (input instanceof List) {
                 if (((List<?>) input).isEmpty())
                     return false;
